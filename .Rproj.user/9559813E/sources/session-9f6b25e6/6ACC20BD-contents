@@ -1,19 +1,26 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "humanLN24"
+  title: "Tcell_stim"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+      - text: "Stromal cells"
+        menu:
+          - mergeSamples.Rmd
+
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:   https://mluetge.github.com/humanLN24/
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
-
-editor: visual
-
