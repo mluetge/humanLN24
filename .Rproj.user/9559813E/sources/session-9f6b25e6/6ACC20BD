@@ -3,7 +3,7 @@
     "path": "~/Projects/scRNAseq/humanLN24/_quarto.yml",
     "project_path": "_quarto.yml",
     "type": "yaml",
-    "hash": "553329192",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1709298783827.0,
@@ -12,8 +12,8 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "5,21",
-        "scrollLine": "3"
+        "cursorPosition": "7,9",
+        "scrollLine": "0"
     },
     "folds": "",
     "lastKnownWriteTime": 1709299945,

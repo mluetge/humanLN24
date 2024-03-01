@@ -1,0 +1,219 @@
+---
+title: "Merge human LN stromal cells"
+author: "Mechthild Lütge"
+date: "18 May 2022"
+output:
+  html_document:
+    self_contained: no
+    code_folding: show
+    number_sections: no
+    toc: yes
+    toc_depth: 3
+    toc_float: true
+    collapsed: no
+    smooth_scroll: yes
+---
+
+```{r setup, include=FALSE}
+options(width = 100)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, dev = c("png", "pdf"))
+seed <- 1234
+```
+
+## load packages
+
+```{r libs}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(Seurat)
+  library(magrittr)
+  library(dplyr)
+  library(purrr)
+  library(ggplot2)
+  library(here)
+  library(runSeurat3)
+  library(ggsci)
+})
+
+```
+
+## set dir
+
+```{r set dir}
+basedir <- here()
+metaDat <- read_tsv(paste0(basedir, "/data/metadataStroma.txt"), col_names = T)
+
+```
+
+## load and assign samples
+
+```{r load plus assign samples}
+
+assignSamples <- function(smpNam, basedirSmp, smpPat, smpGrp, smpOri,
+                          smpImm, smpVDJ){
+  smpNamFull <- list.files(path = paste0(basedirSmp, "/data/stroma/"),
+				 pattern = paste0(smpNam, ".*_seurat.rds"))
+  seuratSmp <- readRDS(paste0(basedirSmp, "/data/stroma/", smpNamFull))
+  seuratSmp$patient <- smpPat
+  seuratSmp$cond <- smpGrp
+  seuratSmp$origin <- smpOri
+  seuratSmp$immCell <- smpImm
+  seuratSmp$vdj <- smpVDJ
+  return(seuratSmp)
+}
+
+
+####################################################################
+
+for(i in 1:length(metaDat$dataset)){
+  seuratX <- assignSamples(smpNam = metaDat$dataset[i],
+                           basedirSmp = basedir,
+                           smpPat =  metaDat$patient[i],
+                           smpGrp = metaDat$cond[i],
+                           smpOri = metaDat$origin[i],
+                           smpImm = metaDat$immuneCells[i],
+                           smpVDJ = metaDat$VDJ[i])
+  if(exists("seurat")){
+    seurat <- merge(x = seurat, y = seuratX, project = "LymphNode_FSC")
+  }else{
+    seurat <- seuratX
+  }
+}
+
+remove(seuratX)
+
+```
+
+## filter cells
+
+```{r filter}
+dim(seurat)
+
+## reprocess
+res <- c(0.8,0.6,0.4,0.25)
+
+seurat <- NormalizeData(object = seurat)
+seurat <- FindVariableFeatures(object = seurat)
+seurat <- ScaleData(object = seurat, verbose = FALSE)
+seurat <- RunPCA(object = seurat, npcs = 30, verbose = FALSE)
+seurat <- RunTSNE(object = seurat, reduction = "pca", dims = 1:20)
+seurat <- RunUMAP(object = seurat, reduction = "pca", dims = 1:20)
+seurat <- FindNeighbors(object = seurat, reduction = "pca", 
+                        dims = 1:20)
+for (i in 1:length(res)) {
+    seurat <- FindClusters(object = seurat, resolution = res[i], 
+                           random.seed = 1234)
+    }
+
+
+## remove cluster with high expression of CD3E, PTPRC, CD79A (b + T cells)
+## remove cluster with high expression of LTF, KRTs, S100A.. ()
+## remove cluster with high expression of PLP1, NRXN1, MPZ.. (Neurons)
+
+seurat <- subset(seurat, RNA_snn_res.0.25 %in% c("6", "9", "10", "12",
+                                                 "13","16"), invert = T)
+
+dim(seurat)
+
+## reprocess
+res <- c(0.8,0.6,0.4,0.25)
+
+seurat <- NormalizeData(object = seurat)
+seurat <- FindVariableFeatures(object = seurat)
+seurat <- ScaleData(object = seurat, verbose = FALSE)
+seurat <- RunPCA(object = seurat, npcs = 30, verbose = FALSE)
+seurat <- RunTSNE(object = seurat, reduction = "pca", dims = 1:20)
+seurat <- RunUMAP(object = seurat, reduction = "pca", dims = 1:20)
+seurat <- FindNeighbors(object = seurat, reduction = "pca", 
+                        dims = 1:20)
+for (i in 1:length(res)) {
+    seurat <- FindClusters(object = seurat, resolution = res[i], 
+                           random.seed = 1234)
+    }
+
+```
+
+## visualize data {.tabset}
+
+### clustering
+
+```{r visualize clustering}
+colPal <- c(pal_nejm()(8),pal_futurama()(12))[1:length(levels(seurat))]
+names(colPal) <- levels(seurat)
+
+## visualize input data
+DimPlot(seurat, reduction = "umap", cols=colPal)+
+  theme_bw() +
+  theme(axis.text = element_blank(), axis.ticks = element_blank(), 
+        panel.grid.minor = element_blank()) +
+  xlab("UMAP1") +
+  ylab("UMAP2")
+
+
+```
+
+### patient
+
+```{r visualize patient}
+colPat <- c(pal_jco()(10),pal_futurama()(12))[1:length(unique(seurat$patient))]
+names(colPat) <- unique(seurat$patient)
+
+## visualize input data
+DimPlot(seurat, reduction = "umap", cols=colPat, group.by = "patient")+
+  theme_bw() +
+  theme(axis.text = element_blank(), axis.ticks = element_blank(), 
+        panel.grid.minor = element_blank()) +
+  xlab("UMAP1") +
+  ylab("UMAP2")
+
+
+```
+
+### condition
+
+```{r visualize condition}
+colCond <- pal_igv()(length(unique(seurat$cond)))
+names(colCond) <- unique(seurat$cond)
+
+## visualize input data
+DimPlot(seurat, reduction = "umap", cols=colCond, group.by = "cond")+
+  theme_bw() +
+  theme(axis.text = element_blank(), axis.ticks = element_blank(), 
+        panel.grid.minor = element_blank()) +
+  xlab("UMAP1") +
+  ylab("UMAP2")
+
+
+```
+
+### origin
+
+```{r visualize origin}
+colOrig <- pal_aaas()(length(unique(seurat$origin)))
+names(colCond) <- unique(seurat$cond)
+
+## visualize input data
+DimPlot(seurat, reduction = "umap", cols=colOrig, group.by = "origin")+
+  theme_bw() +
+  theme(axis.text = element_blank(), axis.ticks = element_blank(), 
+        panel.grid.minor = element_blank()) +
+  xlab("UMAP1") +
+  ylab("UMAP2")
+
+
+```
+
+## save seurat object
+
+```{r save}
+
+saveRDS(seurat, file=paste0(basedir, "/data/AllPatCM_LNFSCMerged_seurat.rds"))
+
+```
+
+## session info
+
+```{r session info}
+sessionInfo()
+date()
+```
