@@ -8,3 +8,5 @@ docs/site_libs
 .quarto/
 _site/
 data/
+
+/.quarto/
