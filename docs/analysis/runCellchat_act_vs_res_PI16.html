@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="">
+
+<title>Human lymph node - run cellchat scRNAseq data on PI16+RC</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Human lymph node</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-stromal-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Stromal cells</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-stromal-cells">    
+        <li>
+    <a class="dropdown-item" href="../analysis/mergeSamples.html" rel="" target="">
+ <span class="dropdown-text">Merge human LN stromal cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/vis_plus_sum_data_woCD.html" rel="" target="">
+ <span class="dropdown-text">visualize data human LN without CD patients</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize marker genes all stromal cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCMResting.html" rel="" target="">
+ <span class="dropdown-text">visualize marker human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/subsetFRCs.html" rel="" target="">
+ <span class="dropdown-text">Subset FRCs and VSMCs human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/subsetLEC.html" rel="" target="">
+ <span class="dropdown-text">Subset LECs human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/subsetBEC.html" rel="" target="">
+ <span class="dropdown-text">Subset BECs human lymph nodes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visLECMarkerGenes_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize marker genes LECs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visBECMarkerGenes_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize BEC marker human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visFRCMarkerGenes_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize marker genes FRC subsets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/clusterMarkerFRCrestingLNonly.html" rel="" target="">
+ <span class="dropdown-text">Correlation analysis gene expression FRCs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visRestingLNonly.html" rel="" target="">
+ <span class="dropdown-text">visualize marker genes FRCs - resting LN only</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visFRC_DEgenesCond2_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize DE genes FRCs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visDEgenesScore.html" rel="" target="">
+ <span class="dropdown-text">DE genes FRCs resting versus activated human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/DEgenesPI16RC.html" rel="" target="">
+ <span class="dropdown-text">visualize DE genes Pi16+RC human LN</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-immune-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Immune cells</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-immune-cells">    
+        <li>
+    <a class="dropdown-item" href="../analysis/mergeImmCells.html" rel="" target="">
+ <span class="dropdown-text">Merge human LN imm cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/integrateIMMcells_acrossPat.html" rel="" target="">
+ <span class="dropdown-text">Integrate human LN immune cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/characterizeImmCellsIntegrated.html" rel="" target="">
+ <span class="dropdown-text">characterize immune cells human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visRestingImmCellsIntegrated.html" rel="" target="">
+ <span class="dropdown-text">characterize immune cells human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visActivatedImmCellsIntegrated.html" rel="" target="">
+ <span class="dropdown-text">characterize immune cells human LN</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cellchat-analysis" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Cellchat analysis</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cellchat-analysis">    
+        <li>
+    <a class="dropdown-item" href="../analysis/runCellchat_act_vs_res.html" rel="" target="">
+ <span class="dropdown-text">run cellchat scRNAseq data human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runCellchat_act_vs_res_PI16.html" rel="" target="">
+ <span class="dropdown-text">run cellchat scRNAseq data on PI16+RC</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-spatial-transcriptomics" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Spatial transcriptomics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-spatial-transcriptomics">    
+        <li>
+    <a class="dropdown-item" href="../analysis/QCplusNorm_SThumanLN.html" rel="" target="">
+ <span class="dropdown-text">merge ST data human LN - batch 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/QCplusNorm_SThumanLN_B2.html" rel="" target="">
+ <span class="dropdown-text">merge ST data human LN - batch2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://mluetge.github.com/humanLN24/">
+            Source Code
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link active" data-scroll-target="#load-packages">Load packages</a></li>
+  <li><a href="#load-seurat-object" id="toc-load-seurat-object" class="nav-link" data-scroll-target="#load-seurat-object">load seurat object</a></li>
+  <li><a href="#set-color-palettes" id="toc-set-color-palettes" class="nav-link" data-scroll-target="#set-color-palettes">set color palettes</a></li>
+  <li><a href="#visualize-data" id="toc-visualize-data" class="nav-link" data-scroll-target="#visualize-data">visualize data</a>
+  <ul class="collapse">
+  <li><a href="#label" id="toc-label" class="nav-link" data-scroll-target="#label">label</a></li>
+  <li><a href="#patient" id="toc-patient" class="nav-link" data-scroll-target="#patient">patient</a></li>
+  <li><a href="#cond2" id="toc-cond2" class="nav-link" data-scroll-target="#cond2">cond2</a></li>
+  <li><a href="#origin" id="toc-origin" class="nav-link" data-scroll-target="#origin">origin</a></li>
+  </ul></li>
+  <li><a href="#load-cellchat-object" id="toc-load-cellchat-object" class="nav-link" data-scroll-target="#load-cellchat-object">load cellchat object</a>
+  <ul class="collapse">
+  <li><a href="#compare-interaction-countsstrength" id="toc-compare-interaction-countsstrength" class="nav-link" data-scroll-target="#compare-interaction-countsstrength">compare interaction counts/strength</a></li>
+  <li><a href="#changes-in-signaling-of-subsets" id="toc-changes-in-signaling-of-subsets" class="nav-link" data-scroll-target="#changes-in-signaling-of-subsets">changes in signaling of subsets</a></li>
+  <li><a href="#signaling-pathways-between-cond" id="toc-signaling-pathways-between-cond" class="nav-link" data-scroll-target="#signaling-pathways-between-cond">signaling pathways between cond</a></li>
+  <li><a href="#diff-usage-of-pw-pi16-to-imm-cells" id="toc-diff-usage-of-pw-pi16-to-imm-cells" class="nav-link" data-scroll-target="#diff-usage-of-pw-pi16-to-imm-cells">diff usage of PW PI16+ to imm cells</a></li>
+  <li><a href="#if-filtered-for-top-pw-pi16-to-imm" id="toc-if-filtered-for-top-pw-pi16-to-imm" class="nav-link" data-scroll-target="#if-filtered-for-top-pw-pi16-to-imm">IF filtered for top PW PI16 to IMM</a></li>
+  <li><a href="#diff-usage-of-pw-imm-cells-to-pi16" id="toc-diff-usage-of-pw-imm-cells-to-pi16" class="nav-link" data-scroll-target="#diff-usage-of-pw-imm-cells-to-pi16">diff usage of PW imm cells to Pi16</a></li>
+  <li><a href="#if-filtered-for-top-pw-imm-plus-pi16-to-pi16" id="toc-if-filtered-for-top-pw-imm-plus-pi16-to-pi16" class="nav-link" data-scroll-target="#if-filtered-for-top-pw-imm-plus-pi16-to-pi16">IF filtered for top PW IMM plus PI16 to PI16</a></li>
+  <li><a href="#if-filtered-for-top-pw-imm-to-pi16" id="toc-if-filtered-for-top-pw-imm-to-pi16" class="nav-link" data-scroll-target="#if-filtered-for-top-pw-imm-to-pi16">IF filtered for top PW IMM to PI16</a></li>
+  <li><a href="#in-out-signalling" id="toc-in-out-signalling" class="nav-link" data-scroll-target="#in-out-signalling">in out signalling</a></li>
+  <li><a href="#r-l-pairs" id="toc-r-l-pairs" class="nav-link" data-scroll-target="#r-l-pairs">R L pairs</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">session info</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">run cellchat scRNAseq data on PI16+RC</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages">Load packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## load packages </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(reshape2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(purrr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(Seurat)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(runSeurat3)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(here)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggsci)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(pheatmap)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(scater)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(SingleCellExperiment)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(scran)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(CellChat)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(patchwork)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ComplexHeatmap)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-seurat-object" class="level2">
+<h2 class="anchored" data-anchor-id="load-seurat-object">load seurat object</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>basedir <span class="ot">&lt;-</span> <span class="fu">here</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>seuratFRC <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file=</span> <span class="fu">paste0</span>(basedir,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"/data/AllPatWithoutCM_FRConly_intOrig"</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"_seurat.rds"</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>seuratIMM <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file=</span> <span class="fu">paste0</span>(basedir,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"/data/AllPatWithoutCM_IMMMerged_integrated_label"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"_seurat.rds"</span>))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">## add label FRCs</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="st">"medRCIFRC"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>label[<span class="fu">which</span>(seuratFRC<span class="sc">$</span>intCluster <span class="sc">==</span> <span class="st">"7"</span>)] <span class="ot">&lt;-</span> <span class="st">"BRC"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>label[<span class="fu">which</span>(seuratFRC<span class="sc">$</span>intCluster <span class="sc">==</span> <span class="st">"2"</span>)] <span class="ot">&lt;-</span> <span class="st">"TRC"</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>label[<span class="fu">which</span>(seuratFRC<span class="sc">$</span>intCluster <span class="sc">==</span> <span class="st">"3"</span>)] <span class="ot">&lt;-</span> <span class="st">"ACTA2+PRC"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>label[<span class="fu">which</span>(seuratFRC<span class="sc">$</span>intCluster <span class="sc">==</span> <span class="st">"4"</span>)] <span class="ot">&lt;-</span> <span class="st">"VSMC"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>label[<span class="fu">which</span>(seuratFRC<span class="sc">$</span>intCluster <span class="sc">==</span> <span class="st">"5"</span>)] <span class="ot">&lt;-</span> <span class="st">"PI16+RC"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>label[<span class="fu">which</span>(seuratFRC<span class="sc">$</span>intCluster <span class="sc">==</span> <span class="st">"6"</span>)] <span class="ot">&lt;-</span> <span class="st">"PRC1"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>cond2 <span class="ot">&lt;-</span> seuratFRC<span class="sc">$</span>cond</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>seuratFRC<span class="sc">$</span>cond2[<span class="fu">which</span>(seuratFRC<span class="sc">$</span>cond <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"acute"</span>, <span class="st">"chronic"</span>))] <span class="ot">&lt;-</span> <span class="st">"activated"</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="do">## group imm cells</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>seuratIMM<span class="sc">$</span>label2 <span class="ot">&lt;-</span> seuratIMM<span class="sc">$</span>label</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>seuratIMM<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="fu">as.character</span>(seuratIMM<span class="sc">$</span>label)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>seuratIMM<span class="sc">$</span>label[<span class="fu">which</span>(seuratIMM<span class="sc">$</span>label <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"naiveCD4-2"</span>, <span class="st">"naiveCD4-3"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"naiveCD4-1"</span>, <span class="st">"Treg"</span> ))] <span class="ot">&lt;-</span> <span class="st">"CD4T"</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>seuratIMM<span class="sc">$</span>label[<span class="fu">which</span>(seuratIMM<span class="sc">$</span>label <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"pDC-2"</span>, <span class="st">"pDC-1"</span> ))] <span class="ot">&lt;-</span> <span class="st">"pDC"</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>seuratIMM<span class="sc">$</span>label[<span class="fu">which</span>(seuratIMM<span class="sc">$</span>label <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"naiveB"</span>, <span class="st">"preB"</span> ))] <span class="ot">&lt;-</span> <span class="st">"naiveB"</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>seurat <span class="ot">&lt;-</span> <span class="fu">merge</span>(seuratFRC, <span class="fu">c</span>(seuratIMM))</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>seurat<span class="sc">$</span>label_plus_cond <span class="ot">&lt;-</span> <span class="fu">paste0</span>(seurat<span class="sc">$</span>label, <span class="st">"_"</span>, seurat<span class="sc">$</span>cond2)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(seurat<span class="sc">$</span>label_plus_cond)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ ACTA2+PRC_activated    ACTA2+PRC_resting        BRC_activated          BRC_resting 
+                4244                 1560                 1487                  390 
+      CD4T_activated         CD4T_resting     CD8Tcm_activated       CD8Tcm_resting 
+               38543                39380                 6234                 4006 
+CTL/NKcell_activated   CTL/NKcell_resting        GCB_activated          GCB_resting 
+                4129                10339                  687                  869 
+      ILC3_activated         ILC3_resting        MBC_activated          MBC_resting 
+                  79                 1819                10732                17174 
+ medRCIFRC_activated    medRCIFRC_resting   Mph/DC-1_activated     Mph/DC-1_resting 
+               10342                10129                  118                 2952 
+  Mph/DC-2_activated     Mph/DC-2_resting     naiveB_activated       naiveB_resting 
+                 157                  980                 8295                14118 
+       pDC_activated          pDC_resting    PI16+RC_activated      PI16+RC_resting 
+                 558                 6750                 1917                  986 
+plasmaCell_activated   plasmaCell_resting       PRC1_activated         PRC1_resting 
+                  53                  326                 1528                  760 
+       TRC_activated          TRC_resting       VSMC_activated         VSMC_resting 
+                3164                 3773                 2767                  724 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(seurat) <span class="ot">&lt;-</span> seurat<span class="sc">$</span>label_plus_cond</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>seurat <span class="ot">&lt;-</span> <span class="fu">subset</span>(<span class="at">x =</span> seurat, <span class="at">downsample =</span> <span class="dv">500</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(seurat<span class="sc">$</span>label_plus_cond)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ ACTA2+PRC_activated    ACTA2+PRC_resting        BRC_activated          BRC_resting 
+                 500                  500                  500                  390 
+      CD4T_activated         CD4T_resting     CD8Tcm_activated       CD8Tcm_resting 
+                 500                  500                  500                  500 
+CTL/NKcell_activated   CTL/NKcell_resting        GCB_activated          GCB_resting 
+                 500                  500                  500                  500 
+      ILC3_activated         ILC3_resting        MBC_activated          MBC_resting 
+                  79                  500                  500                  500 
+ medRCIFRC_activated    medRCIFRC_resting   Mph/DC-1_activated     Mph/DC-1_resting 
+                 500                  500                  118                  500 
+  Mph/DC-2_activated     Mph/DC-2_resting     naiveB_activated       naiveB_resting 
+                 157                  500                  500                  500 
+       pDC_activated          pDC_resting    PI16+RC_activated      PI16+RC_resting 
+                 500                  500                  500                  500 
+plasmaCell_activated   plasmaCell_resting       PRC1_activated         PRC1_resting 
+                  53                  326                  500                  500 
+       TRC_activated          TRC_resting       VSMC_activated         VSMC_resting 
+                 500                  500                  500                  500 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(seurat<span class="sc">$</span>patient)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+P_20200220 P_20200722 P_20200909 P_20210113 P_20210224 P_20220201 P_20220202     ucd010      ucd13 
+      1482        600       1282       1925       1474       2251       2658       1939       1046 
+     ucd14 
+      1466 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(seurat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39642 16123</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(seuratIMM, seuratFRC)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>seurat <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(<span class="at">object =</span> seurat)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>seurat <span class="ot">&lt;-</span> <span class="fu">FindVariableFeatures</span>(<span class="at">object =</span> seurat)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>seurat <span class="ot">&lt;-</span> <span class="fu">ScaleData</span>(<span class="at">object =</span> seurat, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>seurat <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(<span class="at">object =</span> seurat, <span class="at">npcs =</span> <span class="dv">30</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>seurat <span class="ot">&lt;-</span> <span class="fu">RunTSNE</span>(<span class="at">object =</span> seurat, <span class="at">reduction =</span> <span class="st">"pca"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>seurat <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(<span class="at">object =</span> seurat, <span class="at">reduction =</span> <span class="st">"pca"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-color-palettes" class="level2">
+<h2 class="anchored" data-anchor-id="set-color-palettes">set color palettes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>colFRC <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#800000FF"</span>, <span class="st">"#FFA319FF"</span>,<span class="st">"#8A9045FF"</span>, <span class="st">"#155F83FF"</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">"#C16622FF"</span>, <span class="st">"#6692a3"</span>, <span class="st">"#3b7f60"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colFRC) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"medRCIFRC"</span>, <span class="st">"TRC"</span>, <span class="st">"ACTA2+PRC"</span>, <span class="st">"VSMC"</span>, <span class="st">"PI16+RC"</span>, <span class="st">"PRC1"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"BRC"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>colImm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#0b6647"</span>, <span class="st">"#54907e"</span>, <span class="st">"#94c78a"</span>, <span class="st">"#6f9568"</span>, </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"#8f2810"</span>, <span class="st">"#d0ac21"</span>,<span class="st">"#9e9f0b"</span>, <span class="st">"#486584"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"#4b5397"</span>, <span class="st">"#8873d3"</span>, <span class="st">"#6e3e7a"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colImm) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"naiveB"</span>, <span class="st">"GCB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"CD4T"</span>, <span class="st">"CD8Tcm"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"ILC3"</span>, <span class="st">"pDC"</span>, </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>colAll <span class="ot">&lt;-</span> <span class="fu">c</span>(colFRC, colImm) </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>colPal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">pal_uchicago</span>()(<span class="dv">6</span>), <span class="st">"#6692a3"</span>, <span class="st">"#3b7f60"</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colPal) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>colPat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">pal_nejm</span>()(<span class="dv">7</span>),<span class="fu">pal_futurama</span>()(<span class="dv">12</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">unique</span>(seurat<span class="sc">$</span>patient))]</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colPat) <span class="ot">&lt;-</span> <span class="fu">unique</span>(seurat<span class="sc">$</span>patient)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>colCond <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#6692a3"</span>,<span class="st">"#971c1c"</span>,<span class="st">"#d17d67"</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colCond) <span class="ot">&lt;-</span> <span class="fu">unique</span>(seurat<span class="sc">$</span>cond)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>colOri <span class="ot">&lt;-</span> <span class="fu">pal_npg</span>()(<span class="fu">length</span>(<span class="fu">unique</span>(seurat<span class="sc">$</span>origin)))</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colOri) <span class="ot">&lt;-</span> <span class="fu">unique</span>(seurat<span class="sc">$</span>origin)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>colCond2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#6692a3"</span>,<span class="st">"#971c1c"</span>)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colCond2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"resting"</span>, <span class="st">"activated"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualize-data" class="level2 tabset">
+<h2 class="tabset anchored" data-anchor-id="visualize-data">visualize data</h2>
+<section id="label" class="level3">
+<h3 class="anchored" data-anchor-id="label">label</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">cols=</span>colAll, <span class="at">group.by =</span> <span class="st">"label"</span>)<span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/label-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="patient" class="level3">
+<h3 class="anchored" data-anchor-id="patient">patient</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## visualize input data</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">cols=</span>colPat, <span class="at">group.by =</span> <span class="st">"patient"</span>)<span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/visualize patient-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cond2" class="level3">
+<h3 class="anchored" data-anchor-id="cond2">cond2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## visualize input data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">cols=</span>colCond2, <span class="at">group.by =</span> <span class="st">"cond2"</span>)<span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/visualize cond2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="origin" class="level3">
+<h3 class="anchored" data-anchor-id="origin">origin</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## visualize input data</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">cols=</span>colOri, <span class="at">group.by =</span> <span class="st">"origin"</span>)<span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/visualize ori-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="load-cellchat-object" class="level2">
+<h2 class="anchored" data-anchor-id="load-cellchat-object">load cellchat object</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cellchat.merge <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="fu">paste0</span>(basedir,<span class="st">"/data/cellchat/FRCplusImmune_"</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"resPlusActMerge_cellchat.rds"</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>cellchat.res <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="fu">paste0</span>(basedir, <span class="st">"/data/cellchat/FRCplusImmune_"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"resOnly_cellchat.rds"</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>cellchat.act <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="fu">paste0</span>(basedir, <span class="st">"/data/cellchat/FRCplusImmune_"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"actOnly_cellchat.rds"</span>))</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>object.list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">act =</span> cellchat.act, <span class="at">res =</span> cellchat.res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="compare-interaction-countsstrength" class="level3">
+<h3 class="anchored" data-anchor-id="compare-interaction-countsstrength">compare interaction counts/strength</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>colCond3 <span class="ot">&lt;-</span> colCond2</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colCond3) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"res"</span>, <span class="st">"act"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">compareInteractions</span>(cellchat.merge, <span class="at">show.legend =</span> F,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">group =</span> <span class="fu">c</span>(<span class="st">"act"</span>,<span class="st">"res"</span>)) <span class="sc">+</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colCond3)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">compareInteractions</span>(cellchat.merge, <span class="at">show.legend =</span> F, </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                           <span class="at">group =</span> <span class="fu">c</span>(<span class="st">"act"</span>,<span class="st">"res"</span>), <span class="at">measure =</span> <span class="st">"weight"</span>) <span class="sc">+</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colCond3)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>gg1 <span class="sc">+</span> gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/compare int cnts plus tsrength-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_diffInteraction</span>(cellchat.merge, <span class="at">weight.scale =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/compare int cnts plus tsrength-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_diffInteraction</span>(cellchat.merge, <span class="at">weight.scale =</span> T, <span class="at">measure =</span> <span class="st">"weight"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/compare int cnts plus tsrength-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">netVisual_heatmap</span>(cellchat.merge)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">netVisual_heatmap</span>(cellchat.merge, <span class="at">measure =</span> <span class="st">"weight"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>gg1 <span class="sc">+</span> gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/compare int cnts plus tsrength-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">xpd=</span><span class="cn">TRUE</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(colCond3)) {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  groupSize <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">table</span>(cellchat.merge<span class="sc">@</span>idents[i])[<span class="fu">c</span>(<span class="st">"PI16+RC"</span>,<span class="fu">names</span>(colImm))])</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  matPre <span class="ot">&lt;-</span> cellchat.merge<span class="sc">@</span>net[[i]]<span class="sc">$</span>weight</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">&lt;-</span> matPre[<span class="fu">c</span>(<span class="st">"PI16+RC"</span>,<span class="fu">names</span>(colImm)), <span class="fu">c</span>(<span class="st">"PI16+RC"</span>,<span class="fu">names</span>(colImm))] </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  mat2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(mat), <span class="at">ncol =</span> <span class="fu">ncol</span>(mat), <span class="at">dimnames =</span> <span class="fu">dimnames</span>(mat))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  mat2[<span class="st">"PI16+RC"</span>, ] <span class="ot">&lt;-</span> mat[<span class="st">"PI16+RC"</span>, ]</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">netVisual_circle</span>(mat2, <span class="at">vertex.weight =</span> groupSize, <span class="at">weight.scale =</span> T,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">edge.weight.max =</span> <span class="fu">max</span>(mat), <span class="at">title.name =</span> <span class="fu">names</span>(colCond3)[i],</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color.use =</span> colAll[<span class="fu">c</span>(<span class="st">"PI16+RC"</span>,<span class="fu">names</span>(colImm))])</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/compare int cnts plus tsrength-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">xpd=</span><span class="cn">TRUE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(colCond3)) {</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  groupSize <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">table</span>(cellchat.merge<span class="sc">@</span>idents[i])[<span class="fu">c</span>(<span class="st">"PI16+RC"</span>,<span class="fu">names</span>(colImm))])</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  matPre <span class="ot">&lt;-</span> cellchat.merge<span class="sc">@</span>net[[i]]<span class="sc">$</span>count</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">&lt;-</span> matPre[<span class="fu">c</span>(<span class="st">"PI16+RC"</span>,<span class="fu">names</span>(colImm)), <span class="fu">c</span>(<span class="st">"PI16+RC"</span>,<span class="fu">names</span>(colImm))] </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  mat2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(mat), <span class="at">ncol =</span> <span class="fu">ncol</span>(mat), <span class="at">dimnames =</span> <span class="fu">dimnames</span>(mat))</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  mat2[<span class="st">"PI16+RC"</span>, ] <span class="ot">&lt;-</span> mat[<span class="st">"PI16+RC"</span>, ]</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">netVisual_circle</span>(mat2, <span class="at">vertex.weight =</span> groupSize, <span class="at">weight.scale =</span> T,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">edge.weight.max =</span> <span class="fu">max</span>(mat), <span class="at">title.name =</span> <span class="fu">names</span>(colCond3)[i],</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color.use =</span> colAll[<span class="fu">c</span>(<span class="st">"PI16+RC"</span>,<span class="fu">names</span>(colImm))])</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/compare int cnts plus tsrength-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="changes-in-signaling-of-subsets" class="level3">
+<h3 class="anchored" data-anchor-id="changes-in-signaling-of-subsets">changes in signaling of subsets</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>num.link <span class="ot">&lt;-</span> <span class="fu">sapply</span>(object.list, <span class="cf">function</span>(x) {<span class="fu">rowSums</span>(x<span class="sc">@</span>net<span class="sc">$</span>count) <span class="sc">+</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colSums</span>(x<span class="sc">@</span>net<span class="sc">$</span>count)<span class="sc">-</span><span class="fu">diag</span>(x<span class="sc">@</span>net<span class="sc">$</span>count)})</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>weight.MinMax <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(num.link), <span class="fu">max</span>(num.link)) </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(object.list)) {</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  gg[[i]] <span class="ot">&lt;-</span> <span class="fu">netAnalysis_signalingRole_scatter</span>(object.list[[i]],</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">title =</span> <span class="fu">names</span>(object.list)[i],</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">weight.MinMax =</span> weight.MinMax)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>patchwork<span class="sc">::</span><span class="fu">wrap_plots</span>(<span class="at">plots =</span> gg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/changes in signaling of subsets-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(object.list)) {</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  object.list[[i]] <span class="ot">&lt;-</span> <span class="fu">netAnalysis_computeCentrality</span>(object.list[[i]], <span class="at">slot.name =</span> <span class="st">"net"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  gg[[i]] <span class="ot">&lt;-</span> <span class="fu">netAnalysis_signalingRole_scatter</span>(object.list[[i]],</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">title =</span> <span class="fu">names</span>(object.list)[i],</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">weight.MinMax =</span> weight.MinMax,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">slot.name =</span> <span class="st">"net"</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>patchwork<span class="sc">::</span><span class="fu">wrap_plots</span>(<span class="at">plots =</span> gg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/changes in signaling of subsets-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">netAnalysis_signalingChanges_scatter</span>(cellchat.merge,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">idents.use =</span> <span class="st">"PI16+RC"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/changes in signaling of subsets-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">netAnalysis_signalingChanges_scatter</span>(cellchat.merge,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">idents.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">xlims =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.01</span>, <span class="fl">0.001</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">ylims =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.01</span>, <span class="fl">0.001</span>),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">top.label=</span><span class="dv">1</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/changes in signaling of subsets-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="signaling-pathways-between-cond" class="level3">
+<h3 class="anchored" data-anchor-id="signaling-pathways-between-cond">signaling pathways between cond</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_embeddingPairwise</span>(cellchat.merge, <span class="at">type =</span> <span class="st">"functional"</span>, <span class="at">label.size =</span> <span class="dv">2</span>,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">top.label=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2D visualization of signaling networks from datasets 1 2 </code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/sign pw-1.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_embeddingPairwise</span>(cellchat.merge, <span class="at">type =</span> <span class="st">"structural"</span>, <span class="at">label.size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2D visualization of signaling networks from datasets 1 2 </code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/sign pw-2.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rankSimilarity</span>(cellchat.merge, <span class="at">type =</span> <span class="st">"functional"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Compute the distance of signaling networks between datasets 1 2 </code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/sign pw-3.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+<section id="diff-usage-of-pw-pi16-to-imm-cells" class="level3">
+<h3 class="anchored" data-anchor-id="diff-usage-of-pw-pi16-to-imm-cells">diff usage of PW PI16+ to imm cells</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"count"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>gg4 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"count"</span>,</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm-1.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm-2.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>gg3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm-3.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>gg4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm-4.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+<section id="if-filtered-for-top-pw-pi16-to-imm" class="level3">
+<h3 class="anchored" data-anchor-id="if-filtered-for-top-pw-pi16-to-imm">IF filtered for top PW PI16 to IMM</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Information flow based on interaction strength</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>IFweight <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>, <span class="at">return.data =</span> T,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top 10 scaled contribution</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>IFweightFilAct <span class="ot">&lt;-</span> IFweight<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> contribution.scaled, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>IFweightFilRes <span class="ot">&lt;-</span> IFweight<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"res"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> contribution.scaled, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top rel contribution</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>IFweightFilAct2 <span class="ot">&lt;-</span> IFweight<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) </span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> <span class="fu">c</span>(IFweightFilAct<span class="sc">$</span>name, IFweightFilRes<span class="sc">$</span>name),</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, , <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> <span class="fu">c</span>(IFweightFilAct<span class="sc">$</span>name, IFweightFilRes<span class="sc">$</span>name),</span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> IFweightFilAct2<span class="sc">$</span>name,</span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm fil-1.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm fil-2.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>gg3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm fil-3.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Information flow based on interaction counts</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>IFcnts <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"count"</span>, <span class="at">return.data =</span> T,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top 10 rel contribution</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>IFcntsFilAct <span class="ot">&lt;-</span> IFcnts<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> contribution.scaled, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>IFcntsFilRes <span class="ot">&lt;-</span> IFcnts<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"res"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> contribution.scaled, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top rel contribution</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>IFcntsFilAct2 <span class="ot">&lt;-</span> IFcnts<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="at">order_by =</span> contribution.relative<span class="fl">.1</span>, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> <span class="fu">c</span>(IFcntsFilAct<span class="sc">$</span>name, IFcntsFilRes<span class="sc">$</span>name),</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> <span class="fu">c</span>(IFcntsFilAct<span class="sc">$</span>name, IFcntsFilRes<span class="sc">$</span>name),</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">names</span>(colImm))</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> IFcntsFilAct2<span class="sc">$</span>name,</span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm fil-4.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm fil-5.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>gg3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW pi16 to imm fil-6.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<section id="vis-exp-of-rl-pairs-top-pw-pi16-to-imm" class="level4">
+<h4 class="anchored" data-anchor-id="vis-exp-of-rl-pairs-top-pw-pi16-to-imm">vis exp of RL pairs top PW PI16 to IMM</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## filter R-L pairs based on PW</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>LRpairDat <span class="ot">&lt;-</span> cellchat.merge<span class="sc">@</span>LR[[<span class="st">"act"</span>]][[<span class="st">"LRsig"</span>]] <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pathway_name <span class="sc">%in%</span> IFweightFilAct2<span class="sc">$</span>name) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(interaction_name)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>),</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRpairDat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/vis R L pairs top PW PI16 to IMM-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>LRint <span class="ot">&lt;-</span> <span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>, <span class="at">return.data=</span>T,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRpairDat)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>LRintFil <span class="ot">&lt;-</span> LRint<span class="sc">$</span>communication <span class="sc">%&gt;%</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(target, interaction_name, dataset, prob) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(target, interaction_name,) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="fu">which.max</span>(prob)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dataset<span class="sc">==</span><span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(interaction_name)</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>),</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRintFil)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/vis R L pairs top PW PI16 to IMM-2.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="diff-usage-of-pw-imm-cells-to-pi16" class="level3">
+<h3 class="anchored" data-anchor-id="diff-usage-of-pw-imm-cells-to-pi16">diff usage of PW imm cells to Pi16</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm),<span class="st">"PI16+RC"</span>))</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"count"</span>,</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm),<span class="st">"PI16+RC"</span>))</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3,</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>gg4 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"count"</span>,</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16-1.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16-2.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>gg3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16-3.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>gg4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16-4.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">### sources only imm</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"count"</span>,</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3,</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>gg4 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"count"</span>,</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16-5.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16-6.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>gg3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16-7.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>gg4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16-8.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+<section id="if-filtered-for-top-pw-imm-plus-pi16-to-pi16" class="level3">
+<h3 class="anchored" data-anchor-id="if-filtered-for-top-pw-imm-plus-pi16-to-pi16">IF filtered for top PW IMM plus PI16 to PI16</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Information flow based on interaction strength</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>IFweight <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>, <span class="at">return.data =</span> T,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top 10 scaled contribution</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>IFweightFilAct <span class="ot">&lt;-</span> IFweight<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> contribution.scaled, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>IFweightFilRes <span class="ot">&lt;-</span> IFweight<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"res"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> contribution.scaled, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top rel contribution</span></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>IFweightFilAct2 <span class="ot">&lt;-</span> IFweight<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) </span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> <span class="fu">c</span>(IFweightFilAct<span class="sc">$</span>name, IFweightFilRes<span class="sc">$</span>name),</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> <span class="fu">c</span>(IFweightFilAct<span class="sc">$</span>name, IFweightFilRes<span class="sc">$</span>name),</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> IFweightFilAct2<span class="sc">$</span>name,</span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm plus pi16 to pi16 fil-1.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm plus pi16 to pi16 fil-2.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>gg3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm plus pi16 to pi16 fil-3.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Information flow based on interaction counts</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>IFcnts <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"count"</span>, <span class="at">return.data =</span> T,</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top 10 rel contribution</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>IFcntsFilAct <span class="ot">&lt;-</span> IFcnts<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> contribution.scaled, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>IFcntsFilRes <span class="ot">&lt;-</span> IFcnts<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"res"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> contribution.scaled, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top rel contribution</span></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>IFcntsFilAct2 <span class="ot">&lt;-</span> IFcnts<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="at">order_by =</span> contribution.relative<span class="fl">.1</span>, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> <span class="fu">c</span>(IFcntsFilAct<span class="sc">$</span>name, IFcntsFilRes<span class="sc">$</span>name),</span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> F, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> <span class="fu">c</span>(IFcntsFilAct<span class="sc">$</span>name, IFcntsFilRes<span class="sc">$</span>name),</span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> IFcntsFilAct2<span class="sc">$</span>name,</span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>))</span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a>gg1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm plus pi16 to pi16 fil-4.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm plus pi16 to pi16 fil-5.png" class="img-fluid" width="384"></p>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>gg3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm plus pi16 to pi16 fil-6.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<section id="vis-exp-of-rl-pairs-top-pw-imm-plus-pi16-to-pi16" class="level4">
+<h4 class="anchored" data-anchor-id="vis-exp-of-rl-pairs-top-pw-imm-plus-pi16-to-pi16">vis exp of RL pairs top PW IMM plus PI16 to PI16</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## filter R-L pairs based on PW</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>LRpairDat <span class="ot">&lt;-</span> cellchat.merge<span class="sc">@</span>LR[[<span class="st">"act"</span>]][[<span class="st">"LRsig"</span>]] <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pathway_name <span class="sc">%in%</span> IFweightFilAct2<span class="sc">$</span>name) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(interaction_name)</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat.merge, </span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>),</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRpairDat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/vis R L pairs top PW IMM plus pi16 to PI16-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>LRint <span class="ot">&lt;-</span> <span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>),</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>, <span class="at">return.data=</span>T,</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRpairDat)</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>LRintFil <span class="ot">&lt;-</span> LRint<span class="sc">$</span>communication <span class="sc">%&gt;%</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(target, interaction_name, dataset, prob) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(target, interaction_name,) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="fu">which.max</span>(prob)) <span class="sc">%&gt;%</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dataset<span class="sc">==</span><span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(interaction_name)</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm), <span class="st">"PI16+RC"</span>),</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRintFil)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/vis R L pairs top PW IMM plus pi16 to PI16-2.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="if-filtered-for-top-pw-imm-to-pi16" class="level3">
+<h3 class="anchored" data-anchor-id="if-filtered-for-top-pw-imm-to-pi16">IF filtered for top PW IMM to PI16</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Information flow based on interaction strength</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>IFweight <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>, <span class="at">return.data =</span> T,</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="do">### filter for Sign PW with IF sign diff and top rel contribution</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>IFweightFilAct2 <span class="ot">&lt;-</span> IFweight<span class="sc">$</span>signaling.contribution <span class="sc">%&gt;%</span> </span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pvalues <span class="sc">&lt;</span> <span class="fl">0.01</span> <span class="sc">&amp;</span> contribution.relative<span class="fl">.1</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> group <span class="sc">==</span> <span class="st">"act"</span>) </span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> <span class="fu">rankNet</span>(cellchat.merge, <span class="at">mode =</span> <span class="st">"comparison"</span>, <span class="at">stacked =</span> T, <span class="at">do.stat =</span> F,</span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">color.use =</span> colCond3, <span class="at">measure =</span> <span class="st">"weight"</span>,</span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">signaling =</span> IFweightFilAct2<span class="sc">$</span>name,</span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)))</span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a>gg3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/diff usage of PW imm to pi16 fil-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<section id="vis-exp-of-rl-pairs-top-pw-imm-to-pi16" class="level4">
+<h4 class="anchored" data-anchor-id="vis-exp-of-rl-pairs-top-pw-imm-to-pi16">vis exp of RL pairs top PW IMM to PI16</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="do">## filter R-L pairs based on PW - source only imm cells</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>LRpairDat <span class="ot">&lt;-</span> cellchat.merge<span class="sc">@</span>LR[[<span class="st">"act"</span>]][[<span class="st">"LRsig"</span>]] <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pathway_name <span class="sc">%in%</span> IFweightFilAct2<span class="sc">$</span>name) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(interaction_name)</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat.merge, </span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)),</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRpairDat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/r vis R L pairs top PW IMM to PI16-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>LRint <span class="ot">&lt;-</span> <span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)),</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>, <span class="at">return.data=</span>T,</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRpairDat)</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>LRintFil <span class="ot">&lt;-</span> LRint<span class="sc">$</span>communication <span class="sc">%&gt;%</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(target, interaction_name, dataset, prob) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(target, interaction_name,) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="fu">which.max</span>(prob)) <span class="sc">%&gt;%</span></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dataset<span class="sc">==</span><span class="st">"act"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(interaction_name)</span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm)),</span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pairLR.use =</span> LRintFil)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/r vis R L pairs top PW IMM to PI16-2.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="in-out-signalling" class="level3">
+<h3 class="anchored" data-anchor-id="in-out-signalling">in out signalling</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>pathway.union <span class="ot">&lt;-</span> <span class="fu">union</span>(object.list[[i]]<span class="sc">@</span>netP<span class="sc">$</span>pathways, object.list[[i<span class="sc">+</span><span class="dv">1</span>]]<span class="sc">@</span>netP<span class="sc">$</span>pathways)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>ht1 <span class="ot">=</span> <span class="fu">netAnalysis_signalingRole_heatmap</span>(object.list[[i]], <span class="at">pattern =</span> <span class="st">"outgoing"</span>,</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">signaling =</span> pathway.union,</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">title =</span> <span class="fu">names</span>(object.list)[i],</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">26</span>)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>ht2 <span class="ot">=</span> <span class="fu">netAnalysis_signalingRole_heatmap</span>(object.list[[i<span class="sc">+</span><span class="dv">1</span>]],</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">pattern =</span> <span class="st">"outgoing"</span>,</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">signaling =</span> pathway.union,</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">title =</span> <span class="fu">names</span>(object.list)[i<span class="sc">+</span><span class="dv">1</span>],</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">26</span>)</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="fu">draw</span>(ht1 <span class="sc">+</span> ht2, <span class="at">ht_gap =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"cm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/in out signalling-1.png" class="img-fluid" width="1728"></p>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>ht1 <span class="ot">=</span> <span class="fu">netAnalysis_signalingRole_heatmap</span>(object.list[[i]], <span class="at">pattern =</span> <span class="st">"incoming"</span>,</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">signaling =</span> pathway.union,</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">title =</span> <span class="fu">names</span>(object.list)[i],</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">26</span>,</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">color.heatmap =</span> <span class="st">"GnBu"</span>)</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>ht2 <span class="ot">=</span> <span class="fu">netAnalysis_signalingRole_heatmap</span>(object.list[[i<span class="sc">+</span><span class="dv">1</span>]],</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">pattern =</span> <span class="st">"incoming"</span>,</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">signaling =</span> pathway.union,</span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">title =</span> <span class="fu">names</span>(object.list)[i<span class="sc">+</span><span class="dv">1</span>],</span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">26</span>, </span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">color.heatmap =</span> <span class="st">"GnBu"</span>)</span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a><span class="fu">draw</span>(ht1 <span class="sc">+</span> ht2, <span class="at">ht_gap =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"cm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/in out signalling-2.png" class="img-fluid" width="1728"></p>
+</div>
+</div>
+</section>
+<section id="r-l-pairs" class="level3 tabset">
+<h3 class="tabset anchored" data-anchor-id="r-l-pairs">R L pairs</h3>
+<section id="vis-exp-of-rl-pairs" class="level4">
+<h4 class="anchored" data-anchor-id="vis-exp-of-rl-pairs">vis exp of RL pairs</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>),</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/R L pairs-1.png" class="img-fluid" width="960"></p>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>),</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">angle.x =</span> <span class="dv">45</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/R L pairs-2.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+</section>
+<section id="vis-exp-of-diff-rl-pairs" class="level4">
+<h4 class="anchored" data-anchor-id="vis-exp-of-diff-rl-pairs">vis exp of diff RL pairs</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="do">##### ----------------- FRC to immune cells ------------------- ######</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>), </span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">max.dataset =</span> <span class="dv">2</span>,</span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">title.name =</span> <span class="st">"Increased signaling in resting"</span>, <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">remove.isolate =</span> T)</span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>),</span>
+<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">max.dataset =</span> <span class="dv">1</span>,</span>
+<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a>                        <span class="at">title.name =</span> <span class="st">"Increased signaling in activated"</span>, <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a>                        <span class="at">remove.isolate =</span> T)</span>
+<span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a>gg1 <span class="sc">+</span> gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/vis diff RL pairs-1.png" class="img-fluid" width="1920"></p>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="do">##### ----------------- Immune cells to FRCs ------------------- ######</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>,</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>                                                        <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>),</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>, </span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">max.dataset =</span> <span class="dv">2</span>,</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">title.name =</span> <span class="st">"Increased signaling in resting"</span>, <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">remove.isolate =</span> T)</span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">netVisual_bubble</span>(cellchat.merge, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="st">"CD4T"</span>, <span class="st">"CTL/NKcell"</span>,</span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>                                                        <span class="st">"GCB"</span>, <span class="st">"ILC3"</span>,</span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"naiveB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD8Tcm"</span>,</span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Mph/DC-1"</span>, <span class="st">"Mph/DC-2"</span>),</span>
+<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a>                        <span class="at">targets.use =</span> <span class="st">"PI16+RC"</span>,</span>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a>                        <span class="at">comparison =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">max.dataset =</span> <span class="dv">1</span>,</span>
+<span id="cb69-17"><a href="#cb69-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">title.name =</span> <span class="st">"Increased signaling in activated"</span>, <span class="at">angle.x =</span> <span class="dv">45</span>,</span>
+<span id="cb69-18"><a href="#cb69-18" aria-hidden="true" tabindex="-1"></a>                        <span class="at">remove.isolate =</span> T)</span>
+<span id="cb69-19"><a href="#cb69-19" aria-hidden="true" tabindex="-1"></a>gg1 <span class="sc">+</span> gg2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="runCellchat_act_vs_res_PI16_files/figure-html/vis diff RL pairs-2.png" class="img-fluid" width="1920"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="session-info" class="level2">
+<h2 class="anchored" data-anchor-id="session-info">session info</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.3.0 (2023-04-21)
+Platform: x86_64-apple-darwin20 (64-bit)
+Running under: macOS Ventura 13.4.1
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Berlin
+tzcode source: internal
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] ComplexHeatmap_2.16.0       patchwork_1.2.0             CellChat_1.6.1             
+ [4] igraph_2.0.2                scran_1.28.2                scater_1.28.0              
+ [7] scuttle_1.10.3              SingleCellExperiment_1.22.0 SummarizedExperiment_1.30.2
+[10] Biobase_2.60.0              GenomicRanges_1.52.1        GenomeInfoDb_1.36.4        
+[13] IRanges_2.36.0              S4Vectors_0.40.1            BiocGenerics_0.48.0        
+[16] MatrixGenerics_1.12.3       matrixStats_1.2.0           pheatmap_1.0.12            
+[19] ggsci_3.0.0                 here_1.0.1                  runSeurat3_0.1.0           
+[22] ggpubr_0.6.0                lubridate_1.9.3             forcats_1.0.0              
+[25] stringr_1.5.1               readr_2.1.5                 tidyr_1.3.1                
+[28] tibble_3.2.1                tidyverse_2.0.0             Seurat_5.0.1               
+[31] SeuratObject_5.0.1          sp_2.1-3                    purrr_1.0.2                
+[34] ggplot2_3.4.4               reshape2_1.4.4              dplyr_1.1.4                
+
+loaded via a namespace (and not attached):
+  [1] spatstat.sparse_3.0-3     bitops_1.0-7              httr_1.4.7               
+  [4] RColorBrewer_1.1-3        doParallel_1.0.17         tools_4.3.0              
+  [7] sctransform_0.4.1         backports_1.4.1           utf8_1.2.4               
+ [10] R6_2.5.1                  lazyeval_0.2.2            uwot_0.1.16              
+ [13] GetoptLong_1.0.5          withr_3.0.0               gridExtra_2.3            
+ [16] progressr_0.14.0          cli_3.6.2                 Cairo_1.6-2              
+ [19] spatstat.explore_3.2-6    fastDummies_1.7.3         network_1.18.2           
+ [22] labeling_0.4.3            spatstat.data_3.0-4       ggridges_0.5.6           
+ [25] pbapply_1.7-2             systemfonts_1.0.5         svglite_2.1.3            
+ [28] parallelly_1.37.0         limma_3.56.2              rstudioapi_0.15.0        
+ [31] FNN_1.1.4                 generics_0.1.3            shape_1.4.6              
+ [34] ica_1.0-3                 spatstat.random_3.2-2     car_3.1-2                
+ [37] Matrix_1.6-5              ggbeeswarm_0.7.2          fansi_1.0.6              
+ [40] abind_1.4-5               lifecycle_1.0.4           yaml_2.3.8               
+ [43] edgeR_3.42.4              carData_3.0-5             Rtsne_0.17               
+ [46] promises_1.2.1            dqrng_0.3.2               crayon_1.5.2             
+ [49] miniUI_0.1.1.1            lattice_0.22-5            beachmat_2.16.0          
+ [52] cowplot_1.1.3             magick_2.8.3              sna_2.7-2                
+ [55] pillar_1.9.0              knitr_1.45                metapod_1.8.0            
+ [58] rjson_0.2.21              future.apply_1.11.1       codetools_0.2-19         
+ [61] leiden_0.4.3.1            glue_1.7.0                data.table_1.15.0        
+ [64] vctrs_0.6.5               png_0.1-8                 spam_2.10-0              
+ [67] gtable_0.3.4              xfun_0.42                 S4Arrays_1.0.6           
+ [70] mime_0.12                 coda_0.19-4.1             survival_3.5-8           
+ [73] iterators_1.0.14          statmod_1.5.0             bluster_1.10.0           
+ [76] ellipsis_0.3.2            fitdistrplus_1.1-11       ROCR_1.0-11              
+ [79] nlme_3.1-164              RcppAnnoy_0.0.22          rprojroot_2.0.4          
+ [82] irlba_2.3.5.1             vipor_0.4.7               KernSmooth_2.23-22       
+ [85] colorspace_2.1-0          tidyselect_1.2.0          compiler_4.3.0           
+ [88] BiocNeighbors_1.18.0      DelayedArray_0.26.7       plotly_4.10.4            
+ [91] scales_1.3.0              lmtest_0.9-40             NMF_0.27                 
+ [94] digest_0.6.34             goftest_1.2-3             spatstat.utils_3.0-4     
+ [97] rmarkdown_2.25            XVector_0.40.0            htmltools_0.5.7          
+[100] pkgconfig_2.0.3           sparseMatrixStats_1.12.2  fastmap_1.1.1            
+[103] rlang_1.1.3               GlobalOptions_0.1.2       htmlwidgets_1.6.4        
+[106] shiny_1.8.0               DelayedMatrixStats_1.22.6 farver_2.1.1             
+[109] zoo_1.8-12                jsonlite_1.8.8            statnet.common_4.9.0     
+[112] BiocParallel_1.34.2       BiocSingular_1.16.0       RCurl_1.98-1.14          
+[115] magrittr_2.0.3            ggnetwork_0.5.13          GenomeInfoDbData_1.2.10  
+[118] dotCall64_1.1-1           munsell_0.5.0             Rcpp_1.0.12              
+[121] viridis_0.6.5             reticulate_1.35.0         stringi_1.8.3            
+[124] ggalluvial_0.12.5         zlibbioc_1.46.0           MASS_7.3-60.0.1          
+[127] plyr_1.8.9                parallel_4.3.0            listenv_0.9.1            
+[130] ggrepel_0.9.5             deldir_2.0-2              splines_4.3.0            
+[133] tensor_1.5                hms_1.1.3                 circlize_0.4.16          
+[136] locfit_1.5-9.8            spatstat.geom_3.2-8       ggsignif_0.6.4           
+[139] RcppHNSW_0.6.0            rngtools_1.5.2            ScaledMatrix_1.8.1       
+[142] evaluate_0.23             tzdb_0.4.0                foreach_1.5.2            
+[145] httpuv_1.6.14             RANN_2.6.1                polyclip_1.10-6          
+[148] future_1.33.1             clue_0.3-65               scattermore_1.2          
+[151] gridBase_0.4-7            rsvd_1.0.5                broom_1.0.5              
+[154] xtable_1.8-4              RSpectra_0.16-1           rstatix_0.7.2            
+[157] later_1.3.2               viridisLite_0.4.2         beeswarm_0.4.0           
+[160] registry_0.5-1            cluster_2.1.6             timechange_0.3.0         
+[163] globals_0.16.2           </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Thu Mar  7 09:15:56 2024"</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

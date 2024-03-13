@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Tcell_stim"
+  title: "Human lymph node"
   navbar:
     left:
       - href: index.qmd
@@ -11,7 +11,39 @@ website:
       - about.qmd
       - text: "Stromal cells"
         menu:
-          - mergeSamples.Rmd
+          - analysis/mergeSamples.qmd
+          - analysis/vis_plus_sum_data_woCD.qmd
+          - analysis/visMarkerGenes_woCM.qmd
+          - analysis/visMarkerGenes_woCMResting.qmd
+          - analysis/subsetFRCs.qmd
+          - analysis/subsetLEC.qmd
+          - analysis/subsetBEC.qmd
+          - analysis/visLECMarkerGenes_woCM.qmd
+          - analysis/visBECMarkerGenes_woCM.qmd
+          - analysis/visFRCMarkerGenes_woCM.qmd
+          - analysis/clusterMarkerFRCrestingLNonly.qmd
+          - analysis/visRestingLNonly.qmd
+          - analysis/visFRC_DEgenesCond2_woCM.qmd
+          - analysis/visDEgenesScore.qmd
+          - analysis/DEgenesPI16RC.qmd
+      - text: "Immune cells"
+        menu:
+          - analysis/mergeImmCells.qmd
+          - analysis/integrateIMMcells_acrossPat.qmd
+          - analysis/characterizeImmCellsIntegrated.qmd
+          - analysis/visRestingImmCellsIntegrated.qmd
+          - analysis/visActivatedImmCellsIntegrated.qmd
+      - text: "Cellchat analysis"
+        menu:
+          - analysis/runCellchat_act_vs_res.qmd
+          - analysis/runCellchat_act_vs_res_PI16.qmd
+      - text: "Spatial transcriptomics"
+        menu:
+          - analysis/QCplusNorm_SThumanLN.qmd
+          - analysis/QCplusNorm_SThumanLN_B2.qmd
+          - analysis/runSpatalkDecomp_s4.qmd
+          - analysis/runSpaTalkDecompB2_s2.qmd
+          - analysis/runSpaTalkDecompB2_s4.qmd
 
     tools:
       - icon: github
