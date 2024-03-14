@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mechthild Lütge">
+<meta name="dcterms.date" content="2023-06-12">
+
+<title>Human lymph node - Visualize celltype decomposition and neighbourhood - s4 batch 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Human lymph node</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-stromal-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Stromal cells</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-stromal-cells">    
+        <li>
+    <a class="dropdown-item" href="../analysis/mergeSamples.html" rel="" target="">
+ <span class="dropdown-text">Merge human LN stromal cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/vis_plus_sum_data_woCD.html" rel="" target="">
+ <span class="dropdown-text">visualize data human LN without CD patients</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize marker genes all stromal cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCMResting.html" rel="" target="">
+ <span class="dropdown-text">visualize marker human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/subsetFRCs.html" rel="" target="">
+ <span class="dropdown-text">Subset FRCs and VSMCs human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/subsetLEC.html" rel="" target="">
+ <span class="dropdown-text">Subset LECs human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/subsetBEC.html" rel="" target="">
+ <span class="dropdown-text">Subset BECs human lymph nodes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visLECMarkerGenes_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize marker genes LECs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visBECMarkerGenes_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize BEC marker human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visFRCMarkerGenes_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize marker genes FRC subsets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/clusterMarkerFRCrestingLNonly.html" rel="" target="">
+ <span class="dropdown-text">Correlation analysis gene expression FRCs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visRestingLNonly.html" rel="" target="">
+ <span class="dropdown-text">visualize marker genes FRCs - resting LN only</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visFRC_DEgenesCond2_woCM.html" rel="" target="">
+ <span class="dropdown-text">visualize DE genes FRCs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visDEgenesScore.html" rel="" target="">
+ <span class="dropdown-text">DE genes FRCs resting versus activated human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/DEgenesPI16RC.html" rel="" target="">
+ <span class="dropdown-text">visualize DE genes Pi16+RC human LN</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-immune-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Immune cells</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-immune-cells">    
+        <li>
+    <a class="dropdown-item" href="../analysis/mergeImmCells.html" rel="" target="">
+ <span class="dropdown-text">Merge human LN imm cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/integrateIMMcells_acrossPat.html" rel="" target="">
+ <span class="dropdown-text">Integrate human LN immune cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/characterizeImmCellsIntegrated.html" rel="" target="">
+ <span class="dropdown-text">characterize immune cells human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visRestingImmCellsIntegrated.html" rel="" target="">
+ <span class="dropdown-text">visualize resting immune cells human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visActivatedImmCellsIntegrated.html" rel="" target="">
+ <span class="dropdown-text">visualize activated immune cells human LN</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cellchat-analysis" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Cellchat analysis</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cellchat-analysis">    
+        <li>
+    <a class="dropdown-item" href="../analysis/runCellchat_act_vs_res.html" rel="" target="">
+ <span class="dropdown-text">run cellchat scRNAseq data human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runCellchat_act_vs_res_PI16.html" rel="" target="">
+ <span class="dropdown-text">run cellchat scRNAseq data on PI16+RC</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-spatial-transcriptomics" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Spatial transcriptomics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-spatial-transcriptomics">    
+        <li>
+    <a class="dropdown-item" href="../analysis/QCplusNorm_SThumanLN.html" rel="" target="">
+ <span class="dropdown-text">merge ST data human LN - batch 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/QCplusNorm_SThumanLN_B2.html" rel="" target="">
+ <span class="dropdown-text">merge ST data human LN - batch2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpatalkDecomp_s4.html" rel="" target="">
+ <span class="dropdown-text">Run spatalk decomposition - s4 batch1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpaTalkDecompB2_s2.html" rel="" target="">
+ <span class="dropdown-text">Run spatalk decomposition - s2 batch2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpaTalkDecompB2_s4.html" rel="" target="">
+ <span class="dropdown-text">Run spatalk decomposition - s4 batch2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visColocalSpaTalk_s4.html" rel="" target="">
+ <span class="dropdown-text">visualise spatalk decomposition - s4 batch 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visColocalSpaTalkB2_s2.html" rel="" target="">
+ <span class="dropdown-text">visualise spatalk decomposition - s2 batch 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visColocalSpaTalkB2_s4.html" rel="" target="">
+ <span class="dropdown-text">visualise spatalk decomposition - s4 batch 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/celltypeEnrichmentGiotto_s4.html" rel="" target="">
+ <span class="dropdown-text">Visualize celltype decomposition and neighbourhood - s4 batch 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/celltypeEnrichmentGiottoB2_s2.html" rel="" target="">
+ <span class="dropdown-text">Visualize celltype decomposition and neighbourhood - s2 batch 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/celltypeEnrichmentGiottoB2_s4.html" rel="" target="">
+ <span class="dropdown-text">Visualize celltype decomposition and neighbourhood - s4 batch 2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://mluetge.github.com/humanLN24/">
+            Source Code
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link active" data-scroll-target="#load-packages">Load packages</a></li>
+  <li><a href="#barplot-function" id="toc-barplot-function" class="nav-link" data-scroll-target="#barplot-function">barplot function</a></li>
+  <li><a href="#sample-4" id="toc-sample-4" class="nav-link" data-scroll-target="#sample-4">Sample 4</a>
+  <ul class="collapse">
+  <li><a href="#load-spatalk-object" id="toc-load-spatalk-object" class="nav-link" data-scroll-target="#load-spatalk-object">Load spatalk object</a></li>
+  <li><a href="#set-color-palettes" id="toc-set-color-palettes" class="nav-link" data-scroll-target="#set-color-palettes">set color palettes</a></li>
+  <li><a href="#vis-sc-st-data" id="toc-vis-sc-st-data" class="nav-link" data-scroll-target="#vis-sc-st-data">vis sc ST data</a></li>
+  <li><a href="#create-giotto-object" id="toc-create-giotto-object" class="nav-link" data-scroll-target="#create-giotto-object">create giotto object</a></li>
+  <li><a href="#add-image-to-giotto-object" id="toc-add-image-to-giotto-object" class="nav-link" data-scroll-target="#add-image-to-giotto-object">add image to giotto object</a></li>
+  <li><a href="#spatial-network" id="toc-spatial-network" class="nav-link" data-scroll-target="#spatial-network">spatial network</a></li>
+  <li><a href="#cell-neighborhoods-delauney" id="toc-cell-neighborhoods-delauney" class="nav-link" data-scroll-target="#cell-neighborhoods-delauney">cell neighborhoods Delauney</a></li>
+  <li><a href="#cell-neighborhoods-knn" id="toc-cell-neighborhoods-knn" class="nav-link" data-scroll-target="#cell-neighborhoods-knn">cell neighborhoods kNN</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">Session info</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Visualize celltype decomposition and neighbourhood - s4 batch 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mechthild Lütge </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 12, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="load-packages" class="level3">
+<h3 class="anchored" data-anchor-id="load-packages">Load packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SpatialExperiment)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspavis)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scater)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsci)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scran)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SpaTalk)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Giotto)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="barplot-function" class="level3">
+<h3 class="anchored" data-anchor-id="barplot-function">barplot function</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## mod from Giotto:::cellProximityBarplot</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cellProximityBarplot_mod <span class="ot">&lt;-</span> <span class="cf">function</span> (gobject, CPscore, <span class="at">min_orig_ints =</span> <span class="dv">5</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">min_sim_ints =</span> <span class="dv">5</span>, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">filter_sender =</span> <span class="cn">NULL</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">filter_receiver =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">color_by =</span> <span class="st">"type_int"</span>, <span class="at">only_pos =</span> F){</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    table_mean_results_dc <span class="ot">=</span> CPscore<span class="sc">$</span>enrichm_res</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    original <span class="ot">=</span> simulations <span class="ot">=</span> p_higher_orig <span class="ot">=</span> p_lower_orig <span class="ot">=</span> enrichm <span class="ot">=</span> type_int <span class="ot">=</span> unified_int <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    table_mean_results_dc_filter <span class="ot">=</span> table_mean_results_dc[original <span class="sc">&gt;=</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        min_orig_ints <span class="sc">&amp;</span> simulations <span class="sc">&gt;=</span> min_sim_ints]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    table_mean_results_dc_filter <span class="ot">=</span> table_mean_results_dc_filter[p_higher_orig <span class="sc">&lt;=</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        p_val <span class="sc">|</span> p_lower_orig <span class="sc">&lt;=</span> p_val]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    table_mean_results_dc_filter <span class="ot">&lt;-</span> table_mean_results_dc_filter <span class="sc">%&gt;%</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">sender=</span><span class="fu">gsub</span>(<span class="st">"--.*"</span>, <span class="st">""</span>, unified_int)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">receiver=</span><span class="fu">gsub</span>(<span class="st">".*--"</span>, <span class="st">""</span>, unified_int))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(filter_sender)) {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        table_mean_results_dc_filter <span class="ot">&lt;-</span> table_mean_results_dc_filter <span class="sc">%&gt;%</span> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">filter</span>(sender <span class="sc">%in%</span> filter_sender)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(filter_receiver)) {</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        table_mean_results_dc_filter <span class="ot">&lt;-</span> table_mean_results_dc_filter <span class="sc">%&gt;%</span> </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">filter</span>(receiver <span class="sc">%in%</span> filter_receiver)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (only_pos<span class="sc">==</span><span class="cn">TRUE</span>) {</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        table_mean_results_dc_filter <span class="ot">&lt;-</span> table_mean_results_dc_filter <span class="sc">%&gt;%</span> </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">filter</span>(enrichm <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>     pl <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>()</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    pl <span class="ot">&lt;-</span> pl <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">geom_bar</span>(<span class="at">data =</span> table_mean_results_dc_filter, </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> unified_int, <span class="at">y =</span> enrichm, <span class="at">fill =</span> <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> color_by))), </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">show.legend =</span> F)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    pl <span class="ot">&lt;-</span> pl <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">coord_flip</span>()</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    pl <span class="ot">&lt;-</span> pl <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>()</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    pl <span class="ot">&lt;-</span> pl <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"enrichment/depletion"</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pl)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sample-4" class="level2">
+<h2 class="anchored" data-anchor-id="sample-4">Sample 4</h2>
+<section id="load-spatalk-object" class="level3">
+<h3 class="anchored" data-anchor-id="load-spatalk-object">Load spatalk object</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>basedir <span class="ot">&lt;-</span> <span class="fu">here</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file=</span><span class="fu">paste0</span>(basedir, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"/data/ST/spatalk/spatalkDecomp_s"</span>, i,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                           <span class="st">".rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-color-palettes" class="level3">
+<h3 class="anchored" data-anchor-id="set-color-palettes">set color palettes</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>colLEC <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#79AF97FF"</span>,<span class="st">"#B24745FF"</span>,<span class="st">"#DF8F44FF"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colLEC) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"SCScLEC"</span>, <span class="st">"SCSfLEC"</span>, <span class="st">"MedSinusLEC"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>colBEC <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#48557e"</span>, <span class="st">"#e3a616"</span>,<span class="st">"#9a3038"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colBEC) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"venBEC"</span>, <span class="st">"capBEC"</span>, <span class="st">"artBEC"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>colFRC <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#800000FF"</span>, <span class="st">"#FFA319FF"</span>,<span class="st">"#8A9045FF"</span>, <span class="st">"#155F83FF"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"#C16622FF"</span>, <span class="st">"#6692a3"</span>, <span class="st">"#3b7f60"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colFRC) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"medRCIFRC"</span>, <span class="st">"TRC"</span>, <span class="st">"ACTA2+PRC"</span>, <span class="st">"VSMC"</span>, <span class="st">"PI16+RC"</span>, <span class="st">"PRC1"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"BRC"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>colImm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#0b6647"</span>, <span class="st">"#54907e"</span>, <span class="st">"#94c78a"</span>, <span class="st">"#6f9568"</span>, </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"#8f2810"</span>, <span class="st">"#d0ac21"</span>,<span class="st">"#9e9f0b"</span>, <span class="st">"#486584"</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"#4b5397"</span>, <span class="st">"#8873d3"</span>, <span class="st">"#6e3e7a"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colImm) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"naiveB"</span>, <span class="st">"GCB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"CD4T"</span>, <span class="st">"CD8Tcm"</span>, <span class="st">"CTL/NKcell"</span>, <span class="st">"ILC3"</span>, <span class="st">"pDC"</span>, <span class="st">"Mph"</span>, <span class="st">"DC"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>colAll <span class="ot">&lt;-</span> <span class="fu">c</span>(colFRC, colBEC, colLEC, colImm) </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>colPal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#F0027F"</span>, <span class="st">"#377EB8"</span>, <span class="st">"#4DAF4A"</span>, <span class="st">"#984EA3"</span>, <span class="st">"#FFD700"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"#FF7F00"</span>, <span class="st">"#1A1A1A"</span>, <span class="st">"#666666"</span>, <span class="fu">pal_futurama</span>()(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="vis-sc-st-data" class="level3">
+<h3 class="anchored" data-anchor-id="vis-sc-st-data">vis sc ST data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_st_celltype_all</span>(<span class="at">object =</span> obj, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> colAll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/vis sc ST data-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="create-giotto-object" class="level3">
+<h3 class="anchored" data-anchor-id="create-giotto-object">create giotto object</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## create giotto object from sc spatial data as inferred by SpaTalk</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>cellLoc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(obj<span class="sc">@</span>meta<span class="sc">$</span>newmeta<span class="sc">$</span>x, obj<span class="sc">@</span>meta<span class="sc">$</span>newmeta<span class="sc">$</span>y))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cellLoc) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>gobject <span class="ot">=</span> <span class="fu">createGiottoObject</span>(<span class="at">raw_exprs=</span>obj<span class="sc">@</span>data<span class="sc">$</span>newdata, <span class="at">spatial_locs=</span>cellLoc,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">cell_metadata =</span> obj<span class="sc">@</span>meta<span class="sc">$</span>newmeta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Consider to install these (optional) packages to run all possible Giotto commands for spatial analyses:  MAST smfishHmrf trendsceek SPARK multinet RTriangle FactoMiner
+ Giotto does not automatically install all these packages as they are not absolutely required and this reduces the number of dependenciespython:         /Users/mechthildluetge/Library/r-miniconda/envs/giotto_env/bin/pythonw
+libpython:      /Users/mechthildluetge/Library/r-miniconda/envs/giotto_env/lib/libpython3.6m.dylib
+pythonhome:     /Users/mechthildluetge/Library/r-miniconda/envs/giotto_env:/Users/mechthildluetge/Library/r-miniconda/envs/giotto_env
+version:        3.6.10 |Anaconda, Inc.| (default, Jan  7 2020, 15:01:53)  [GCC 4.2.1 Compatible Clang 4.0.1 (tags/RELEASE_401/final)]
+numpy:          /Users/mechthildluetge/Library/r-miniconda/envs/giotto_env/lib/python3.6/site-packages/numpy
+numpy_version:  1.19.5
+
+NOTE: Python version was forced by use_python() function
+
+ no external python path was provided, but a giotto python environment was found and will be used </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">showGiottoInstructions</span>(gobject)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$python_path
+[1] "/Users/mechthildluetge/Library/r-miniconda/envs/giotto_env/bin/pythonw"
+
+$show_plot
+[1] TRUE
+
+$return_plot
+[1] TRUE
+
+$save_plot
+[1] FALSE
+
+$save_dir
+[1] "/Users/mechthildluetge/Projects/scRNAseq/humanLN24/analysis"
+
+$plot_format
+[1] "png"
+
+$dpi
+[1] 300
+
+$units
+[1] "in"
+
+$height
+[1] 9
+
+$width
+[1] 9
+
+$is_docker
+[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gobject <span class="ot">&lt;-</span> <span class="fu">changeGiottoInstructions</span>(gobject, <span class="at">param =</span> <span class="st">'save_dir'</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">new_value =</span> <span class="fu">paste0</span>(basedir, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"/data/ST/giottoPlots"</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>gobject <span class="ot">&lt;-</span> <span class="fu">changeGiottoInstructions</span>(gobject, <span class="at">param =</span> <span class="st">'plot_format'</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">new_value =</span> <span class="st">"pdf"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                               </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">showGiottoInstructions</span>(gobject)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$python_path
+[1] "/Users/mechthildluetge/Library/r-miniconda/envs/giotto_env/bin/pythonw"
+
+$show_plot
+[1] TRUE
+
+$return_plot
+[1] TRUE
+
+$save_plot
+[1] FALSE
+
+$save_dir
+[1] "/Users/mechthildluetge/Projects/scRNAseq/humanLN24/data/ST/giottoPlots"
+
+$plot_format
+[1] "pdf"
+
+$dpi
+[1] 300
+
+$units
+[1] "in"
+
+$height
+[1] 9
+
+$width
+[1] 9
+
+$is_docker
+[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mypl <span class="ot">&lt;-</span> <span class="fu">spatPlot</span>(<span class="at">gobject =</span> gobject, <span class="at">cell_color =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">cell_color_code =</span> colAll, <span class="at">point_size =</span> <span class="fl">0.7</span>) <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span><span class="st">'black'</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="dv">5</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/create giotto obj-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mypl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/create giotto obj-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="add-image-to-giotto-object" class="level3">
+<h3 class="anchored" data-anchor-id="add-image-to-giotto-object">add image to giotto object</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>png_path <span class="ot">=</span> <span class="fu">paste0</span>(basedir, <span class="st">"/data/ST/giottoPlots/20230531_spatialtrancriptomic"</span>, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"_humanLNpat55_quaD-Stitching-02_2023-06-06T17-03-11_277.tif"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mg_img <span class="ot">=</span> magick<span class="sc">::</span><span class="fu">image_read</span>(png_path)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>mg_img2 <span class="ot">=</span> magick<span class="sc">::</span><span class="fu">image_negate</span>(mg_img)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>orig_neg_png <span class="ot">=</span> <span class="fu">createGiottoImage</span>(<span class="at">gobject =</span> gobject, <span class="at">mg_object =</span> mg_img2,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">name =</span> <span class="st">'image_neg'</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">xmax_adj =</span> <span class="dv">760</span>, <span class="at">xmin_adj =</span> <span class="dv">730</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">ymax_adj =</span> <span class="dv">1050</span>, <span class="at">ymin_adj =</span> <span class="dv">500</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>mypl <span class="ot">=</span> <span class="fu">spatPlot</span>(<span class="at">gobject =</span> gobject, <span class="at">cell_color =</span> <span class="st">'celltype'</span>, <span class="at">point_alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">cell_color_code =</span> colAll, <span class="at">point_size =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/add image-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mypl_image <span class="ot">=</span> <span class="fu">addGiottoImageToSpatPlot</span>(mypl, orig_neg_png)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mypl_image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/add image-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>orig_neg_png <span class="ot">=</span> <span class="fu">createGiottoImage</span>(<span class="at">gobject =</span> gobject, <span class="at">mg_object =</span> mg_img,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">name =</span> <span class="st">'image_pos'</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">xmax_adj =</span> <span class="dv">760</span>, <span class="at">xmin_adj =</span> <span class="dv">730</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">ymax_adj =</span> <span class="dv">1050</span>, <span class="at">ymin_adj =</span> <span class="dv">500</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>mypl_image <span class="ot">=</span> <span class="fu">addGiottoImageToSpatPlot</span>(mypl, orig_neg_png)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>mypl_image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/add image-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>png_path <span class="ot">=</span> <span class="fu">paste0</span>(basedir, <span class="st">"/data/ST/giottoPlots/20230531_spatial trancriptomic_"</span>, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"human LN pat55_quaD-Stitching-02_2023-06-06T17-03-14.637.tif"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>mg_img <span class="ot">=</span> magick<span class="sc">::</span><span class="fu">image_read</span>(png_path)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>orig_neg_png <span class="ot">=</span> <span class="fu">createGiottoImage</span>(<span class="at">gobject =</span> gobject, <span class="at">mg_object =</span> mg_img,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">name =</span> <span class="st">'image_flu'</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">xmax_adj =</span> <span class="dv">760</span>, <span class="at">xmin_adj =</span> <span class="dv">730</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">ymax_adj =</span> <span class="dv">1050</span>, <span class="at">ymin_adj =</span> <span class="dv">500</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>mypl_image <span class="ot">=</span> <span class="fu">addGiottoImageToSpatPlot</span>(mypl, orig_neg_png)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>mypl_image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/add image-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="spatial-network" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-network">spatial network</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotStatDelaunayNetwork</span>(<span class="at">gobject =</span> gobject)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/spatial network-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/spatial network-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gobject <span class="ot">&lt;-</span> <span class="fu">createSpatialNetwork</span>(<span class="at">gobject =</span> gobject, <span class="at">minimum_k =</span> <span class="dv">2</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>gobject <span class="ot">&lt;-</span> <span class="fu">createSpatialNetwork</span>(<span class="at">gobject =</span> gobject, <span class="at">minimum_k =</span> <span class="dv">2</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">'kNN'</span>, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">verbose=</span>T)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">showNetworks</span>(gobject)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following images are available:  Delaunay_network kNN_network </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Delaunay_network" "kNN_network"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the two different spatial networks</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spatPlot</span>(<span class="at">gobject =</span> gobject, <span class="at">show_network =</span> T,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">network_color =</span> <span class="st">'blue'</span>, <span class="at">spatial_network_name =</span> <span class="st">'Delaunay_network'</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">point_size =</span> <span class="dv">1</span>, <span class="at">cell_color =</span> <span class="st">'celltype'</span>, <span class="at">point_alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">cell_color_code =</span> colAll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/spatial network-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/spatial network-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spatPlot</span>(<span class="at">gobject =</span> gobject, <span class="at">show_network =</span> T,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">network_color =</span> <span class="st">'blue'</span>, <span class="at">spatial_network_name =</span> <span class="st">'kNN_network'</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">point_size =</span> <span class="dv">1</span>, <span class="at">cell_color =</span> <span class="st">'celltype'</span>, <span class="at">point_alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">cell_color_code =</span> colAll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/spatial network-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/spatial network-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cell-neighborhoods-delauney" class="level3 tabset">
+<h3 class="tabset anchored" data-anchor-id="cell-neighborhoods-delauney">cell neighborhoods Delauney</h3>
+<section id="all-celltypes-barplot" class="level4">
+<h4 class="anchored" data-anchor-id="all-celltypes-barplot">all celltypes barplot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### ------- all cell types ------------------------ #####</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>cell_proximities <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'Delaunay_network'</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># barplot</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct barplot-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct barplot-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># barplot</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct barplot-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="subset-celltypes-barplot" class="level4">
+<h4 class="anchored" data-anchor-id="subset-celltypes-barplot">subset celltypes barplot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># barplot</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC))) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney sub ct barplot-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC)),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney sub ct barplot-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colImm)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney sub ct barplot-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colImm),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney sub ct barplot-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="all-celltypes-heatmap" class="level4">
+<h4 class="anchored" data-anchor-id="all-celltypes-heatmap">all celltypes heatmap</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">##network</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cellProximityNetwork</span>(<span class="at">gobject =</span> gobject, <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">remove_self_edges =</span> T, <span class="at">only_show_enrichment_edges =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobject, <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobject, <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney all ct-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="frc-plus-immune" class="level4">
+<h4 class="anchored" data-anchor-id="frc-plus-immune">FRC plus immune</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap FRC plus immune</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>selCells <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm),<span class="fu">names</span>(colFRC))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>selCellIDs <span class="ot">&lt;-</span> gobject<span class="sc">@</span>cell_ID[<span class="fu">which</span>(gobject<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="sc">%in%</span> selCells)]</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>gobjectSub <span class="ot">&lt;-</span> <span class="fu">subsetGiotto</span>(gobject, <span class="at">cell_ids =</span> selCellIDs)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="ot">&lt;-</span> <span class="fu">factor</span>(gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">levels=</span>selCells)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>cell_proximitiesSub <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'Delaunay_network'</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> F, <span class="at">scale =</span> T,</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney FRC plus immune-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney FRC plus immune-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney FRC plus immune-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney FRC plus immune-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney FRC plus immune-5.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="frc-plus-sel-imm-or-ec-heatmap" class="level4">
+<h4 class="anchored" data-anchor-id="frc-plus-sel-imm-or-ec-heatmap">FRC plus sel IMM or EC heatmap</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap FRC plus selected immune</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>selImm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"naiveB"</span>, <span class="st">"GCB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD4T"</span>, <span class="st">"DC"</span>, <span class="st">"Mph"</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>selCells <span class="ot">&lt;-</span> <span class="fu">c</span>(selImm,<span class="fu">names</span>(colFRC))</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>selCellIDs <span class="ot">&lt;-</span> gobject<span class="sc">@</span>cell_ID[<span class="fu">which</span>(gobject<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="sc">%in%</span> selCells)]</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>gobjectSub <span class="ot">&lt;-</span> <span class="fu">subsetGiotto</span>(gobject, <span class="at">cell_ids =</span> selCellIDs)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="ot">&lt;-</span> <span class="fu">factor</span>(gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">levels=</span>selCells)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>cell_proximitiesSub <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'Delaunay_network'</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">### barplot</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colImm)) <span class="sc">+</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colImm),</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap FRC plus endothelial</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>selCells <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(colLEC),<span class="fu">names</span>(colBEC),<span class="fu">names</span>(colFRC))</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>selCellIDs <span class="ot">&lt;-</span> gobject<span class="sc">@</span>cell_ID[<span class="fu">which</span>(gobject<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="sc">%in%</span> selCells)]</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>gobjectSub <span class="ot">&lt;-</span> <span class="fu">subsetGiotto</span>(gobject, <span class="at">cell_ids =</span> selCellIDs)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="ot">&lt;-</span> <span class="fu">factor</span>(gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">levels=</span>selCells)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>cell_proximitiesSub <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'Delaunay_network'</span>,</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-9.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-10.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-11.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-12.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-13.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-14.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">### barplot</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T) <span class="sc">+</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-15.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC))) <span class="sc">+</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-16.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC)),</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods delauney frc plus selIMM or EC-17.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="cell-neighborhoods-knn" class="level3 tabset">
+<h3 class="tabset anchored" data-anchor-id="cell-neighborhoods-knn">cell neighborhoods kNN</h3>
+<section id="all-celltypes-barplot-1" class="level4">
+<h4 class="anchored" data-anchor-id="all-celltypes-barplot-1">all celltypes barplot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### ------- all cell types ------------------------ #####</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>cell_proximities <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'kNN_network'</span>,</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="co"># barplot</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct barplot-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct barplot-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># barplot</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct barplot-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="subset-celltypes-barplot-1" class="level4">
+<h4 class="anchored" data-anchor-id="subset-celltypes-barplot-1">subset celltypes barplot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC))) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN sub ct barplot-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC)),</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN sub ct barplot-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colImm)) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN sub ct barplot-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobject,</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximities, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colImm),</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN sub ct barplot-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="all-celltypes-heatmap-1" class="level4">
+<h4 class="anchored" data-anchor-id="all-celltypes-heatmap-1">all celltypes heatmap</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="do">##network</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cellProximityNetwork</span>(<span class="at">gobject =</span> gobject, <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">remove_self_edges =</span> T, <span class="at">only_show_enrichment_edges =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobject, <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobject, <span class="at">CPscore =</span> cell_proximities,</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN all ct-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="frc-plus-immune-1" class="level4">
+<h4 class="anchored" data-anchor-id="frc-plus-immune-1">FRC plus immune</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap FRC plus immune</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>selCells <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(colImm),<span class="fu">names</span>(colFRC))</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>selCellIDs <span class="ot">&lt;-</span> gobject<span class="sc">@</span>cell_ID[<span class="fu">which</span>(gobject<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="sc">%in%</span> selCells)]</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>gobjectSub <span class="ot">&lt;-</span> <span class="fu">subsetGiotto</span>(gobject, <span class="at">cell_ids =</span> selCellIDs)</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="ot">&lt;-</span> <span class="fu">factor</span>(gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype,</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">levels=</span>selCells)</span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>cell_proximitiesSub <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'kNN_network'</span>,</span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> F, <span class="at">scale =</span> T,</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN FRC plus immune-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN FRC plus immune-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN FRC plus immune-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN FRC plus immune-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN FRC plus immune-5.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="frc-plus-sel-imm-or-ec" class="level4">
+<h4 class="anchored" data-anchor-id="frc-plus-sel-imm-or-ec">FRC plus sel IMM or EC</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap FRC plus selected immune</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>selImm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"naiveB"</span>, <span class="st">"GCB"</span>, <span class="st">"MBC"</span>, <span class="st">"plasmaCell"</span>, <span class="st">"CD4T"</span>, <span class="st">"DC"</span>, <span class="st">"Mph"</span>)</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>selCells <span class="ot">&lt;-</span> <span class="fu">c</span>(selImm,<span class="fu">names</span>(colFRC))</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>selCellIDs <span class="ot">&lt;-</span> gobject<span class="sc">@</span>cell_ID[<span class="fu">which</span>(gobject<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="sc">%in%</span> selCells)]</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>gobjectSub <span class="ot">&lt;-</span> <span class="fu">subsetGiotto</span>(gobject, <span class="at">cell_ids =</span> selCellIDs)</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="ot">&lt;-</span> <span class="fu">factor</span>(gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype,</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">levels=</span>selCells)</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>cell_proximitiesSub <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'kNN_network'</span>,</span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="do">### barplot</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T) <span class="sc">+</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colImm)) <span class="sc">+</span></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colImm),</span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap FRC plus endothelial</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>selCells <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(colLEC),<span class="fu">names</span>(colBEC),<span class="fu">names</span>(colFRC))</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>selCellIDs <span class="ot">&lt;-</span> gobject<span class="sc">@</span>cell_ID[<span class="fu">which</span>(gobject<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="sc">%in%</span> selCells)]</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>gobjectSub <span class="ot">&lt;-</span> <span class="fu">subsetGiotto</span>(gobject, <span class="at">cell_ids =</span> selCellIDs)</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="ot">&lt;-</span> <span class="fu">factor</span>(gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype,</span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">levels=</span>selCells)</span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>cell_proximitiesSub <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'kNN_network'</span>,</span>
+<span id="cb79-12"><a href="#cb79-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb79-13"><a href="#cb79-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb79-14"><a href="#cb79-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-15"><a href="#cb79-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-16"><a href="#cb79-16" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb79-17"><a href="#cb79-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb79-18"><a href="#cb79-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb79-19"><a href="#cb79-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-9.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-10.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-11.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-12.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-13.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-14.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="do">### barplot</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T) <span class="sc">+</span></span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-15.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC))) <span class="sc">+</span></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-16.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC)),</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN frc plus selIMM or EC-17.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="prc-plus-sel-ec" class="level4">
+<h4 class="anchored" data-anchor-id="prc-plus-sel-ec">PRC plus sel EC</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="do">##heatmap FRC plus endothelial</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>selCells <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(colLEC),<span class="fu">names</span>(colBEC),</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="st">"ACTA2+PRC"</span>, <span class="st">"PRC1"</span>, <span class="st">"VSMC"</span>, <span class="st">"PI16+RC"</span>))</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>selCellIDs <span class="ot">&lt;-</span> gobject<span class="sc">@</span>cell_ID[<span class="fu">which</span>(gobject<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="sc">%in%</span> selCells)]</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>gobjectSub <span class="ot">&lt;-</span> <span class="fu">subsetGiotto</span>(gobject, <span class="at">cell_ids =</span> selCellIDs)</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype <span class="ot">&lt;-</span> <span class="fu">factor</span>(gobjectSub<span class="sc">@</span>cell_metadata<span class="sc">$</span>celltype,</span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">levels=</span>selCells)</span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>cell_proximitiesSub <span class="ot">&lt;-</span> <span class="fu">cellProximityEnrichment</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">cluster_column =</span> <span class="st">'celltype'</span>,</span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">spatial_network_name =</span> <span class="st">'kNN_network'</span>,</span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">adjust_method =</span> <span class="st">'fdr'</span>,</span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">number_of_simulations =</span> <span class="dv">1000</span>)</span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-17"><a href="#cb88-17" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb88-18"><a href="#cb88-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb88-19"><a href="#cb88-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb88-20"><a href="#cb88-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#6876a4"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#95143a"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-1.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-2.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-3.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span><span class="fu">cellProximityHeatmap</span>(<span class="at">gobject =</span> gobjectSub, <span class="at">CPscore =</span> cell_proximitiesSub,</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">order_cell_types =</span> T, <span class="at">scale =</span> T,</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_names =</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="st">"#00155e"</span>, <span class="st">"#0000a6"</span>, <span class="st">"#dca611"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-4.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-5.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>matrix <span class="ot">&lt;-</span> p<span class="sc">@</span>matrix[selCells,selCells]</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>column_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>p<span class="sc">@</span>row_names_param[[<span class="st">"anno"</span>]]<span class="sc">@</span>var_env[[<span class="st">"value"</span>]] <span class="ot">&lt;-</span> selCells</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>p          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-6.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="do">### barplot</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T) <span class="sc">+</span></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-7.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"sender"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">names</span>(colFRC),</span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC))) <span class="sc">+</span></span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-8.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">cellProximityBarplot_mod</span>(<span class="at">gobject =</span> gobjectSub,</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">CPscore =</span> cell_proximitiesSub, <span class="at">p_val =</span> <span class="fl">0.05</span>,</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">min_orig_ints =</span> <span class="dv">5</span>, <span class="at">min_sim_ints =</span> <span class="dv">5</span>,</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color_by =</span> <span class="st">"receiver"</span>, <span class="at">only_pos =</span> T,</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_sender =</span> <span class="fu">c</span>(<span class="fu">names</span>(colBEC), <span class="fu">names</span>(colLEC)),</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">filter_receiver =</span> <span class="fu">names</span>(colFRC)) <span class="sc">+</span></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colAll)</span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="celltypeEnrichmentGiotto_s4_files/figure-html/cell neighborhoods kNN prc plus sel EC-9.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="session-info" class="level2">
+<h2 class="anchored" data-anchor-id="session-info">Session info</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.3.0 (2023-04-21)
+Platform: x86_64-apple-darwin20 (64-bit)
+Running under: macOS Ventura 13.4.1
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Berlin
+tzcode source: internal
+
+attached base packages:
+[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] Giotto_1.1.2                biomaRt_2.56.1             
+ [3] igraph_2.0.2                Seurat_5.0.2               
+ [5] SeuratObject_5.0.1          sp_2.1-3                   
+ [7] Matrix_1.6-5                SpaTalk_1.0                
+ [9] doParallel_1.0.17           iterators_1.0.14           
+[11] foreach_1.5.2               ggalluvial_0.12.5          
+[13] pheatmap_1.0.12             scran_1.28.2               
+[15] ggsci_3.0.1                 scater_1.28.0              
+[17] scuttle_1.10.3              ggspavis_1.6.0             
+[19] here_1.0.1                  SpatialExperiment_1.10.0   
+[21] SingleCellExperiment_1.22.0 SummarizedExperiment_1.30.2
+[23] Biobase_2.60.0              GenomicRanges_1.52.1       
+[25] GenomeInfoDb_1.36.4         IRanges_2.36.0             
+[27] S4Vectors_0.40.1            BiocGenerics_0.48.0        
+[29] MatrixGenerics_1.12.3       matrixStats_1.2.0          
+[31] lubridate_1.9.3             forcats_1.0.0              
+[33] stringr_1.5.1               dplyr_1.1.4                
+[35] purrr_1.0.2                 readr_2.1.5                
+[37] tidyr_1.3.1                 tibble_3.2.1               
+[39] ggplot2_3.5.0               tidyverse_2.0.0            
+
+loaded via a namespace (and not attached):
+  [1] R.methodsS3_1.8.2         progress_1.2.3           
+  [3] goftest_1.2-3             Biostrings_2.68.1        
+  [5] HDF5Array_1.28.1          vctrs_0.6.5              
+  [7] spatstat.random_3.2-3     digest_0.6.34            
+  [9] png_0.1-8                 shape_1.4.6.1            
+ [11] ggrepel_0.9.5             deldir_2.0-4             
+ [13] parallelly_1.37.1         magick_2.8.3             
+ [15] MASS_7.3-60.0.1           reshape2_1.4.4           
+ [17] httpuv_1.6.14             withr_3.0.0              
+ [19] xfun_0.42                 ggfun_0.1.4              
+ [21] ggpubr_0.6.0              ellipsis_0.3.2           
+ [23] survival_3.5-8            memoise_2.0.1            
+ [25] ggbeeswarm_0.7.2          zoo_1.8-12               
+ [27] GlobalOptions_0.1.2       pbapply_1.7-2            
+ [29] R.oo_1.26.0               prettyunits_1.2.0        
+ [31] KEGGREST_1.40.1           promises_1.2.1           
+ [33] httr_1.4.7                rstatix_0.7.2            
+ [35] globals_0.16.2            fitdistrplus_1.1-11      
+ [37] rhdf5filters_1.12.1       rhdf5_2.44.0             
+ [39] rstudioapi_0.15.0         miniUI_0.1.1.1           
+ [41] generics_0.1.3            curl_5.2.1               
+ [43] zlibbioc_1.46.0           ScaledMatrix_1.8.1       
+ [45] ggraph_2.2.0              polyclip_1.10-6          
+ [47] GenomeInfoDbData_1.2.10   xtable_1.8-4             
+ [49] evaluate_0.23             S4Arrays_1.0.6           
+ [51] BiocFileCache_2.8.0       hms_1.1.3                
+ [53] irlba_2.3.5.1             colorspace_2.1-0         
+ [55] filelock_1.0.3            ROCR_1.0-11              
+ [57] reticulate_1.35.0         spatstat.data_3.0-4      
+ [59] magrittr_2.0.3            lmtest_0.9-40            
+ [61] later_1.3.2               viridis_0.6.5            
+ [63] lattice_0.22-5            spatstat.geom_3.2-9      
+ [65] future.apply_1.11.1       scattermore_1.2          
+ [67] XML_3.99-0.16.1           cowplot_1.1.3            
+ [69] RcppAnnoy_0.0.22          pillar_1.9.0             
+ [71] nlme_3.1-164              compiler_4.3.0           
+ [73] beachmat_2.16.0           RSpectra_0.16-1          
+ [75] stringi_1.8.3             tensor_1.5               
+ [77] plyr_1.8.9                crayon_1.5.2             
+ [79] abind_1.4-5               locfit_1.5-9.9           
+ [81] graphlayouts_1.1.0        bit_4.0.5                
+ [83] codetools_0.2-19          BiocSingular_1.16.0      
+ [85] ggExtra_0.10.1            GetoptLong_1.0.5         
+ [87] plotly_4.10.4             mime_0.12                
+ [89] NNLM_0.4.4                splines_4.3.0            
+ [91] circlize_0.4.16           Rcpp_1.0.12              
+ [93] fastDummies_1.7.3         dbplyr_2.4.0             
+ [95] sparseMatrixStats_1.12.2  knitr_1.45               
+ [97] blob_1.2.4                utf8_1.2.4               
+ [99] clue_0.3-65               listenv_0.9.1            
+[101] DelayedMatrixStats_1.22.6 ggsignif_0.6.4           
+[103] statmod_1.5.0             tzdb_0.4.0               
+[105] tweenr_2.0.3              pkgconfig_2.0.3          
+[107] tools_4.3.0               cachem_1.0.8             
+[109] RSQLite_2.3.5             viridisLite_0.4.2        
+[111] DBI_1.2.2                 fastmap_1.1.1            
+[113] rmarkdown_2.26            scales_1.3.0             
+[115] grid_4.3.0                ica_1.0-3                
+[117] broom_1.0.5               patchwork_1.2.0          
+[119] dotCall64_1.1-1           carData_3.0-5            
+[121] RANN_2.6.1                farver_2.1.1             
+[123] tidygraph_1.3.1           scatterpie_0.2.1         
+[125] yaml_2.3.8                cli_3.6.2                
+[127] leiden_0.4.3.1            lifecycle_1.0.4          
+[129] dbscan_1.1-12             uwot_0.1.16              
+[131] bluster_1.10.0            backports_1.4.1          
+[133] DropletUtils_1.20.0       BiocParallel_1.34.2      
+[135] timechange_0.3.0          gtable_0.3.4             
+[137] rjson_0.2.21              ggridges_0.5.6           
+[139] progressr_0.14.0          limma_3.56.2             
+[141] jsonlite_1.8.8            edgeR_3.42.4             
+[143] RcppHNSW_0.6.0            bitops_1.0-7             
+[145] bit64_4.0.5               Rtsne_0.17               
+[147] spatstat.utils_3.0-4      BiocNeighbors_1.18.0     
+[149] ggside_0.3.1              metapod_1.8.0            
+[151] dqrng_0.3.2               R.utils_2.12.3           
+[153] lazyeval_0.2.2            shiny_1.8.0              
+[155] htmltools_0.5.7           sctransform_0.4.1        
+[157] rappdirs_0.3.3            glue_1.7.0               
+[159] spam_2.10-0               XVector_0.40.0           
+[161] RCurl_1.98-1.14           rprojroot_2.0.4          
+[163] gridExtra_2.3             R6_2.5.1                 
+[165] labeling_0.4.3            cluster_2.1.6            
+[167] Rhdf5lib_1.22.1           DelayedArray_0.26.7      
+[169] tidyselect_1.2.0          vipor_0.4.7              
+[171] ggforce_0.4.2             xml2_1.3.6               
+[173] car_3.1-2                 AnnotationDbi_1.62.2     
+[175] future_1.33.1             rsvd_1.0.5               
+[177] munsell_0.5.0             KernSmooth_2.23-22       
+[179] data.table_1.15.2         htmlwidgets_1.6.4        
+[181] ComplexHeatmap_2.16.0     RColorBrewer_1.1-3       
+[183] rlang_1.1.3               spatstat.sparse_3.0-3    
+[185] spatstat.explore_3.2-6    Cairo_1.6-2              
+[187] fansi_1.0.6               beeswarm_0.4.0           </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Thu Mar 14 14:58:57 2024"</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
