@@ -2,26 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="">
 
 <title>Human lymph node - visualize DE genes FRCs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,13 +41,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -104,90 +127,150 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../index.html">
+      <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Human lymph node</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
+  </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../index.html">Home</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../about.html">About</a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-stromal-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
- <span class="menu-text">Stromal cells</span>
-    </a>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-stromal-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false">Stromal cells</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-stromal-cells">    
         <li>
-    <a class="dropdown-item" href="../analysis/mergeSamples.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/mergeSamples.html">
  <span class="dropdown-text">Merge human LN stromal cells</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/vis_plus_sum_data_woCD.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/vis_plus_sum_data_woCD.html">
  <span class="dropdown-text">visualize data human LN without CD patients</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCM.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCM.html">
  <span class="dropdown-text">visualize marker genes all stromal cells</span></a>
   </li>  
-        <li class="dropdown-header">analysis/visMarkerGenes_woCMResting.qmd</li>
         <li>
-    <a class="dropdown-item" href="../analysis/subsetFRCs.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCMResting.html">
+ <span class="dropdown-text">visualize marker human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/subsetFRCs.html">
  <span class="dropdown-text">Subset FRCs and VSMCs human LN</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/subsetLEC.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/subsetLEC.html">
  <span class="dropdown-text">Subset LECs human LN</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/subsetBEC.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/subsetBEC.html">
  <span class="dropdown-text">Subset BECs human lymph nodes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visFRCMarkerGenes_woCM.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visLECMarkerGenes_woCM.html">
+ <span class="dropdown-text">visualize marker genes LECs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visBECMarkerGenes_woCM.html">
+ <span class="dropdown-text">visualize BEC marker human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visFRCMarkerGenes_woCM.html">
  <span class="dropdown-text">visualize marker genes FRC subsets</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/clusterMarkerFRCrestingLNonly.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/clusterMarkerFRCrestingLNonly.html">
  <span class="dropdown-text">Correlation analysis gene expression FRCs</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visRestingLNonly.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visRestingLNonly.html">
  <span class="dropdown-text">visualize marker genes FRCs - resting LN only</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visFRC_DEgenesCond2_woCM.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visFRC_DEgenesCond2_woCM.html">
  <span class="dropdown-text">visualize DE genes FRCs</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visDEgenesScore.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visDEgenesScore.html">
  <span class="dropdown-text">DE genes FRCs resting versus activated human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/DEgenesPI16RC.html">
+ <span class="dropdown-text">visualize DE genes Pi16+RC human LN</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-immune-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false">Immune cells</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-immune-cells">    
+        <li>
+    <a class="dropdown-item" href="../analysis/mergeImmCells.html">
+ <span class="dropdown-text">Merge human LN imm cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/integrateIMMcells_acrossPat.html">
+ <span class="dropdown-text">Integrate human LN immune cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/characterizeImmCellsIntegrated.html">
+ <span class="dropdown-text">characterize immune cells human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visRestingImmCellsIntegrated.html">
+ <span class="dropdown-text">visualize resting immune cells human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visActivatedImmCellsIntegrated.html">
+ <span class="dropdown-text">visualize activated immune cells human LN</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cellchat-analysis" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cellchat analysis</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cellchat-analysis">    
+        <li>
+    <a class="dropdown-item" href="../analysis/runCellchat_act_vs_res.html">
+ <span class="dropdown-text">run cellchat scRNAseq data human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runCellchat_act_vs_res_PI16.html">
+ <span class="dropdown-text">run cellchat scRNAseq data on PI16+RC</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-spatial-transcriptomics" role="button" data-bs-toggle="dropdown" aria-expanded="false">Spatial transcriptomics</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-spatial-transcriptomics">    
+        <li>
+    <a class="dropdown-item" href="../analysis/QCplusNorm_SThumanLN.html">
+ <span class="dropdown-text">merge ST data human LN - batch 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/QCplusNorm_SThumanLN_B2.html">
+ <span class="dropdown-text">merge ST data human LN - batch2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpatalkDecomp_s4.html">
+ <span class="dropdown-text">Run spatalk decomposition - s4 batch1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpaTalkDecompB2_s2.html">
+ <span class="dropdown-text">Run spatalk decomposition - s2 batch2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpaTalkDecompB2_s4.html">
+ <span class="dropdown-text">Run spatalk decomposition - s4 batch2</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-    <div class="dropdown">
-      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://mluetge.github.com/humanLN24/">
-            Source Code
-            </a>
-          </li>
-      </ul>
-    </div>
-</div>
+              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -197,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -243,14 +326,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p> </p>
+          </div>
+  </div>
     
-  
     
   </div>
   
 
 </header>
 
+<div class="cell">
+
+</div>
 <section id="load-packages" class="level2">
 <h2 class="anchored" data-anchor-id="load-packages">Load packages</h2>
 <div class="cell">
@@ -323,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize clustering-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize%20clustering-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -334,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">split.by =</span> <span class="st">"cond2"</span>)<span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize clustering by cond-1.png" class="img-fluid" width="768"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize%20clustering%20by%20cond-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 </section>
@@ -349,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize patient-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize%20patient-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -364,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize cond-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize%20cond-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -380,13 +471,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize cond2-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize%20cond2-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">cols=</span>colCond2, <span class="at">group.by =</span> <span class="st">"cond2"</span>,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">pt.size=</span><span class="fl">0.5</span>, <span class="at">shuffle =</span> T)<span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize cond2-2.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize%20cond2-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -401,7 +492,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize grp-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize%20grp-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -416,7 +507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize ori-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/visualize%20ori-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -438,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"cluster"</span>,</span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">"percentage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## relative abundance per cond</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>clustCond <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">table</span>(seurat<span class="sc">$</span>cond2, seurat<span class="sc">$</span>intCluster))</span>
@@ -453,7 +544,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(clustDat2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="table table-sm table-striped">
 <thead>
 <tr class="header">
 <th style="text-align: left;">cond</th>
@@ -605,10 +696,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">symbols</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">circles =</span> <span class="dv">1</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>)</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-2.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-3.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
@@ -625,10 +716,10 @@ NULL</code></pre>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> co)</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-4.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-4.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-5.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-5.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
@@ -655,7 +746,7 @@ NULL</code></pre>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"cluster"</span>,</span>
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">"percentage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-6.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-6.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## relative abundance per cond</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>clustCond <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">table</span>(seuratSub<span class="sc">$</span>cond2, seuratSub<span class="sc">$</span>intCluster))</span>
@@ -670,7 +761,7 @@ NULL</code></pre>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(clustDat2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="table table-sm table-striped">
 <thead>
 <tr class="header">
 <th style="text-align: left;">cond</th>
@@ -822,10 +913,10 @@ NULL</code></pre>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">symbols</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">circles =</span> <span class="dv">1</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>)</span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-7.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-7.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-8.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-8.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
@@ -842,10 +933,10 @@ NULL</code></pre>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste0</span>(co, <span class="st">"- only same sorting"</span>))</span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-9.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-9.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per cond2-10.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20cond2-10.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
@@ -880,7 +971,7 @@ NULL</code></pre>
 <span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rotate_x_text</span>(<span class="at">angle =</span> <span class="dv">90</span>) <span class="sc">+</span></span>
 <span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>cond, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">space =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster abundances per patient-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/cluster%20abundances%20per%20patient-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -913,7 +1004,7 @@ NULL</code></pre>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gapVecR=</span><span class="cn">NULL</span>, <span class="at">gapVecC=</span><span class="cn">NULL</span>,<span class="at">cc=</span><span class="cn">FALSE</span>,</span>
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cr=</span>T, <span class="at">condCol=</span>T, <span class="at">colVecCond =</span> colCond2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avg heatmap cl marker-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avg%20heatmap%20cl%20marker-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -934,7 +1025,7 @@ NULL</code></pre>
 <span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">type =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
 <span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">breaks=</span>selFeatures<span class="sc">$</span>gene, <span class="at">labels=</span>selFeatures<span class="sc">$</span>label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/sc Heatmap overall DE genes-1.png" class="img-fluid" width="960"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/sc%20Heatmap%20overall%20DE%20genes-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section>
@@ -970,11 +1061,14 @@ NULL</code></pre>
 </div>
 <section id="avg-heatmap-top-cwde-genes" class="level3 tabset">
 <h3 class="tabset anchored" data-anchor-id="avg-heatmap-top-cwde-genes">avg Heatmap top cwDE genes</h3>
+<div class="cell">
+
+</div>
 <section id="section" class="level4">
 <h4 class="anchored" data-anchor-id="section">5</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat cwDE 5-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat%20cwDE%205-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -982,7 +1076,7 @@ NULL</code></pre>
 <h4 class="anchored" data-anchor-id="section-1">1</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat cwDE 1-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat%20cwDE%201-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -990,7 +1084,7 @@ NULL</code></pre>
 <h4 class="anchored" data-anchor-id="section-2">2</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat cwDE 2-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat%20cwDE%202-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -998,7 +1092,7 @@ NULL</code></pre>
 <h4 class="anchored" data-anchor-id="section-3">0</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat cwDE 0-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat%20cwDE%200-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -1006,7 +1100,7 @@ NULL</code></pre>
 <h4 class="anchored" data-anchor-id="section-4">4</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat cwDE 4-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat%20cwDE%204-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -1014,7 +1108,7 @@ NULL</code></pre>
 <h4 class="anchored" data-anchor-id="section-5">7</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat cwDE 7-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat%20cwDE%207-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -1022,7 +1116,7 @@ NULL</code></pre>
 <h4 class="anchored" data-anchor-id="section-6">3</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat cwDE 3-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat%20cwDE%203-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -1030,7 +1124,7 @@ NULL</code></pre>
 <h4 class="anchored" data-anchor-id="section-7">6</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat cwDE 6-1.png" class="img-fluid" width="1152"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/avgHeat%20cwDE%206-1.png" class="img-fluid" width="1152"></p>
 </div>
 </div>
 </section>
@@ -1097,56 +1191,56 @@ NULL</code></pre>
 <pre><code>[[1]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot cw DE genes-1.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot%20cw%20DE%20genes-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[2]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot cw DE genes-2.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot%20cw%20DE%20genes-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[3]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot cw DE genes-3.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot%20cw%20DE%20genes-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[4]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot cw DE genes-4.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot%20cw%20DE%20genes-4.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[5]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot cw DE genes-5.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot%20cw%20DE%20genes-5.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[6]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot cw DE genes-6.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot%20cw%20DE%20genes-6.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[7]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot cw DE genes-7.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot%20cw%20DE%20genes-7.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[8]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot cw DE genes-8.png" class="img-fluid" width="672"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/scatterplot%20cw%20DE%20genes-8.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1169,7 +1263,7 @@ NULL</code></pre>
 <span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">type =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
 <span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">breaks=</span>selFeatures<span class="sc">$</span>gene, <span class="at">labels=</span>selFeatures<span class="sc">$</span>label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/sc heatmap top cw DE genes-1.png" class="img-fluid" width="960"></p>
+<p><img src="visFRC_DEgenesCond2_woCM_files/figure-html/sc%20heatmap%20top%20cw%20DE%20genes-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section>
@@ -1201,12 +1295,12 @@ other attached packages:
  [4] SummarizedExperiment_1.30.2 Biobase_2.60.0              GenomicRanges_1.52.1       
  [7] GenomeInfoDb_1.36.4         IRanges_2.36.0              S4Vectors_0.40.1           
 [10] BiocGenerics_0.48.0         MatrixGenerics_1.12.3       matrixStats_1.2.0          
-[13] pheatmap_1.0.12             ggsci_3.0.0                 here_1.0.1                 
+[13] pheatmap_1.0.12             ggsci_3.0.1                 here_1.0.1                 
 [16] runSeurat3_0.1.0            ggpubr_0.6.0                lubridate_1.9.3            
 [19] forcats_1.0.0               stringr_1.5.1               readr_2.1.5                
 [22] tidyr_1.3.1                 tibble_3.2.1                tidyverse_2.0.0            
-[25] Seurat_5.0.1                SeuratObject_5.0.1          sp_2.1-3                   
-[28] purrr_1.0.2                 cowplot_1.1.3               ggplot2_3.4.4              
+[25] Seurat_5.0.2                SeuratObject_5.0.1          sp_2.1-3                   
+[28] purrr_1.0.2                 cowplot_1.1.3               ggplot2_3.5.0              
 [31] reshape2_1.4.4              dplyr_1.1.4                
 
 loaded via a namespace (and not attached):
@@ -1215,50 +1309,51 @@ loaded via a namespace (and not attached):
   [7] lifecycle_1.0.4           rstatix_0.7.2             rprojroot_2.0.4          
  [10] globals_0.16.2            lattice_0.22-5            MASS_7.3-60.0.1          
  [13] backports_1.4.1           magrittr_2.0.3            limma_3.56.2             
- [16] plotly_4.10.4             rmarkdown_2.25            yaml_2.3.8               
+ [16] plotly_4.10.4             rmarkdown_2.26            yaml_2.3.8               
  [19] httpuv_1.6.14             sctransform_0.4.1         spam_2.10-0              
  [22] spatstat.sparse_3.0-3     reticulate_1.35.0         pbapply_1.7-2            
  [25] RColorBrewer_1.1-3        abind_1.4-5               zlibbioc_1.46.0          
- [28] Rtsne_0.17                RCurl_1.98-1.14           GenomeInfoDbData_1.2.10  
- [31] ggrepel_0.9.5             irlba_2.3.5.1             listenv_0.9.1            
- [34] spatstat.utils_3.0-4      goftest_1.2-3             RSpectra_0.16-1          
- [37] spatstat.random_3.2-2     fitdistrplus_1.1-11       parallelly_1.37.0        
- [40] DelayedMatrixStats_1.22.6 leiden_0.4.3.1            codetools_0.2-19         
- [43] DelayedArray_0.26.7       tidyselect_1.2.0          farver_2.1.1             
- [46] viridis_0.6.5             ScaledMatrix_1.8.1        spatstat.explore_3.2-6   
- [49] jsonlite_1.8.8            BiocNeighbors_1.18.0      ellipsis_0.3.2           
- [52] progressr_0.14.0          ggridges_0.5.6            survival_3.5-8           
- [55] tools_4.3.0               ica_1.0-3                 Rcpp_1.0.12              
- [58] glue_1.7.0                gridExtra_2.3             xfun_0.42                
- [61] withr_3.0.0               fastmap_1.1.1             fansi_1.0.6              
- [64] rsvd_1.0.5                digest_0.6.34             timechange_0.3.0         
- [67] R6_2.5.1                  mime_0.12                 colorspace_2.1-0         
- [70] scattermore_1.2           tensor_1.5                spatstat.data_3.0-4      
- [73] utf8_1.2.4                generics_0.1.3            data.table_1.15.0        
- [76] httr_1.4.7                htmlwidgets_1.6.4         S4Arrays_1.0.6           
- [79] uwot_0.1.16               pkgconfig_2.0.3           gtable_0.3.4             
- [82] lmtest_0.9-40             XVector_0.40.0            htmltools_0.5.7          
- [85] carData_3.0-5             dotCall64_1.1-1           scales_1.3.0             
- [88] png_0.1-8                 knitr_1.45                rstudioapi_0.15.0        
- [91] tzdb_0.4.0                nlme_3.1-164              zoo_1.8-12               
- [94] KernSmooth_2.23-22        vipor_0.4.7               parallel_4.3.0           
- [97] miniUI_0.1.1.1            pillar_1.9.0              grid_4.3.0               
-[100] vctrs_0.6.5               RANN_2.6.1                promises_1.2.1           
-[103] BiocSingular_1.16.0       car_3.1-2                 beachmat_2.16.0          
-[106] xtable_1.8-4              cluster_2.1.6             beeswarm_0.4.0           
-[109] evaluate_0.23             cli_3.6.2                 compiler_4.3.0           
-[112] rlang_1.1.3               crayon_1.5.2              future.apply_1.11.1      
-[115] ggsignif_0.6.4            labeling_0.4.3            ggbeeswarm_0.7.2         
-[118] plyr_1.8.9                stringi_1.8.3             BiocParallel_1.34.2      
-[121] viridisLite_0.4.2         deldir_2.0-2              munsell_0.5.0            
-[124] lazyeval_0.2.2            spatstat.geom_3.2-8       Matrix_1.6-5             
-[127] RcppHNSW_0.6.0            hms_1.1.3                 patchwork_1.2.0          
-[130] sparseMatrixStats_1.12.2  future_1.33.1             shiny_1.8.0              
-[133] ROCR_1.0-11               igraph_2.0.2              broom_1.0.5              </code></pre>
+ [28] Rtsne_0.17                presto_1.0.0              RCurl_1.98-1.14          
+ [31] GenomeInfoDbData_1.2.10   ggrepel_0.9.5             irlba_2.3.5.1            
+ [34] listenv_0.9.1             spatstat.utils_3.0-4      goftest_1.2-3            
+ [37] RSpectra_0.16-1           spatstat.random_3.2-3     fitdistrplus_1.1-11      
+ [40] parallelly_1.37.1         DelayedMatrixStats_1.22.6 leiden_0.4.3.1           
+ [43] codetools_0.2-19          DelayedArray_0.26.7       tidyselect_1.2.0         
+ [46] farver_2.1.1              viridis_0.6.5             ScaledMatrix_1.8.1       
+ [49] spatstat.explore_3.2-6    jsonlite_1.8.8            BiocNeighbors_1.18.0     
+ [52] ellipsis_0.3.2            progressr_0.14.0          ggridges_0.5.6           
+ [55] survival_3.5-8            tools_4.3.0               ica_1.0-3                
+ [58] Rcpp_1.0.12               glue_1.7.0                gridExtra_2.3            
+ [61] xfun_0.42                 withr_3.0.0               fastmap_1.1.1            
+ [64] fansi_1.0.6               rsvd_1.0.5                digest_0.6.34            
+ [67] timechange_0.3.0          R6_2.5.1                  mime_0.12                
+ [70] colorspace_2.1-0          scattermore_1.2           tensor_1.5               
+ [73] spatstat.data_3.0-4       utf8_1.2.4                generics_0.1.3           
+ [76] data.table_1.15.2         httr_1.4.7                htmlwidgets_1.6.4        
+ [79] S4Arrays_1.0.6            uwot_0.1.16               pkgconfig_2.0.3          
+ [82] gtable_0.3.4              lmtest_0.9-40             XVector_0.40.0           
+ [85] htmltools_0.5.7           carData_3.0-5             dotCall64_1.1-1          
+ [88] scales_1.3.0              png_0.1-8                 knitr_1.45               
+ [91] rstudioapi_0.15.0         tzdb_0.4.0                nlme_3.1-164             
+ [94] zoo_1.8-12                KernSmooth_2.23-22        vipor_0.4.7              
+ [97] parallel_4.3.0            miniUI_0.1.1.1            pillar_1.9.0             
+[100] grid_4.3.0                vctrs_0.6.5               RANN_2.6.1               
+[103] promises_1.2.1            BiocSingular_1.16.0       car_3.1-2                
+[106] beachmat_2.16.0           xtable_1.8-4              cluster_2.1.6            
+[109] beeswarm_0.4.0            evaluate_0.23             cli_3.6.2                
+[112] compiler_4.3.0            rlang_1.1.3               crayon_1.5.2             
+[115] future.apply_1.11.1       ggsignif_0.6.4            labeling_0.4.3           
+[118] ggbeeswarm_0.7.2          plyr_1.8.9                stringi_1.8.3            
+[121] BiocParallel_1.34.2       viridisLite_0.4.2         deldir_2.0-4             
+[124] munsell_0.5.0             lazyeval_0.2.2            spatstat.geom_3.2-9      
+[127] Matrix_1.6-5              RcppHNSW_0.6.0            hms_1.1.3                
+[130] patchwork_1.2.0           sparseMatrixStats_1.12.2  future_1.33.1            
+[133] shiny_1.8.0               ROCR_1.0-11               igraph_2.0.2             
+[136] broom_1.0.5              </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Tue Mar  5 16:24:47 2024"</code></pre>
+<pre><code>[1] "Wed Mar 13 19:07:39 2024"</code></pre>
 </div>
 </div>
 
@@ -1293,23 +1388,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -1321,24 +1402,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
     setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1366,136 +1430,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
       });
-    }
+      return popup.innerHTML;
+    });
   }
 });
 </script>

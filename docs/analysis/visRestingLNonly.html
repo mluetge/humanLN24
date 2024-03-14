@@ -2,26 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="">
 
 <title>Human lymph node - visualize marker genes FRCs - resting LN only</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,13 +41,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -104,90 +127,150 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../index.html">
+      <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Human lymph node</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
+  </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../index.html">Home</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../about.html">About</a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-stromal-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
- <span class="menu-text">Stromal cells</span>
-    </a>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-stromal-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false">Stromal cells</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-stromal-cells">    
         <li>
-    <a class="dropdown-item" href="../analysis/mergeSamples.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/mergeSamples.html">
  <span class="dropdown-text">Merge human LN stromal cells</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/vis_plus_sum_data_woCD.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/vis_plus_sum_data_woCD.html">
  <span class="dropdown-text">visualize data human LN without CD patients</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCM.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCM.html">
  <span class="dropdown-text">visualize marker genes all stromal cells</span></a>
   </li>  
-        <li class="dropdown-header">analysis/visMarkerGenes_woCMResting.qmd</li>
         <li>
-    <a class="dropdown-item" href="../analysis/subsetFRCs.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visMarkerGenes_woCMResting.html">
+ <span class="dropdown-text">visualize marker human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/subsetFRCs.html">
  <span class="dropdown-text">Subset FRCs and VSMCs human LN</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/subsetLEC.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/subsetLEC.html">
  <span class="dropdown-text">Subset LECs human LN</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/subsetBEC.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/subsetBEC.html">
  <span class="dropdown-text">Subset BECs human lymph nodes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visFRCMarkerGenes_woCM.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visLECMarkerGenes_woCM.html">
+ <span class="dropdown-text">visualize marker genes LECs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visBECMarkerGenes_woCM.html">
+ <span class="dropdown-text">visualize BEC marker human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visFRCMarkerGenes_woCM.html">
  <span class="dropdown-text">visualize marker genes FRC subsets</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/clusterMarkerFRCrestingLNonly.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/clusterMarkerFRCrestingLNonly.html">
  <span class="dropdown-text">Correlation analysis gene expression FRCs</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visRestingLNonly.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visRestingLNonly.html">
  <span class="dropdown-text">visualize marker genes FRCs - resting LN only</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visFRC_DEgenesCond2_woCM.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visFRC_DEgenesCond2_woCM.html">
  <span class="dropdown-text">visualize DE genes FRCs</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../analysis/visDEgenesScore.html" rel="" target="">
+    <a class="dropdown-item" href="../analysis/visDEgenesScore.html">
  <span class="dropdown-text">DE genes FRCs resting versus activated human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/DEgenesPI16RC.html">
+ <span class="dropdown-text">visualize DE genes Pi16+RC human LN</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-immune-cells" role="button" data-bs-toggle="dropdown" aria-expanded="false">Immune cells</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-immune-cells">    
+        <li>
+    <a class="dropdown-item" href="../analysis/mergeImmCells.html">
+ <span class="dropdown-text">Merge human LN imm cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/integrateIMMcells_acrossPat.html">
+ <span class="dropdown-text">Integrate human LN immune cells</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/characterizeImmCellsIntegrated.html">
+ <span class="dropdown-text">characterize immune cells human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visRestingImmCellsIntegrated.html">
+ <span class="dropdown-text">visualize resting immune cells human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/visActivatedImmCellsIntegrated.html">
+ <span class="dropdown-text">visualize activated immune cells human LN</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cellchat-analysis" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cellchat analysis</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-cellchat-analysis">    
+        <li>
+    <a class="dropdown-item" href="../analysis/runCellchat_act_vs_res.html">
+ <span class="dropdown-text">run cellchat scRNAseq data human LN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runCellchat_act_vs_res_PI16.html">
+ <span class="dropdown-text">run cellchat scRNAseq data on PI16+RC</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-spatial-transcriptomics" role="button" data-bs-toggle="dropdown" aria-expanded="false">Spatial transcriptomics</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-spatial-transcriptomics">    
+        <li>
+    <a class="dropdown-item" href="../analysis/QCplusNorm_SThumanLN.html">
+ <span class="dropdown-text">merge ST data human LN - batch 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/QCplusNorm_SThumanLN_B2.html">
+ <span class="dropdown-text">merge ST data human LN - batch2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpatalkDecomp_s4.html">
+ <span class="dropdown-text">Run spatalk decomposition - s4 batch1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpaTalkDecompB2_s2.html">
+ <span class="dropdown-text">Run spatalk decomposition - s2 batch2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analysis/runSpaTalkDecompB2_s4.html">
+ <span class="dropdown-text">Run spatalk decomposition - s4 batch2</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-    <div class="dropdown">
-      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://mluetge.github.com/humanLN24/">
-            Source Code
-            </a>
-          </li>
-      </ul>
-    </div>
-</div>
+              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -197,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -240,14 +323,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p> </p>
+          </div>
+  </div>
     
-  
     
   </div>
   
 
 </header>
 
+<div class="cell">
+
+</div>
 <section id="load-packages" class="level2">
 <h2 class="anchored" data-anchor-id="load-packages">Load packages</h2>
 <div class="cell">
@@ -321,12 +412,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/visualize clustering-1.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/visualize%20clustering-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">cols=</span>colPal, <span class="at">pt.size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/visualize clustering-2.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/visualize%20clustering-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -341,13 +432,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/visualize patient-1.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/visualize%20patient-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">cols=</span>colPat, <span class="at">group.by =</span> <span class="st">"patient"</span>,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">pt.size=</span><span class="fl">0.5</span>, <span class="at">shuffle =</span> T)<span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/visualize patient-2.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/visualize%20patient-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -362,13 +453,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/visualize cond-1.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/visualize%20cond-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">cols=</span>colCond, <span class="at">group.by =</span> <span class="st">"cond"</span>,</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">pt.size=</span><span class="fl">0.5</span>, <span class="at">shuffle =</span> T)<span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/visualize cond-2.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/visualize%20cond-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -383,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/visualize grp-1.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/visualize%20grp-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -398,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"UMAP1"</span>) <span class="sc">+</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"UMAP2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/visualize ori-1.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/visualize%20ori-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -426,7 +517,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gapVecR=</span><span class="cn">NULL</span>, <span class="at">gapVecC=</span><span class="cn">NULL</span>,<span class="at">cc=</span>F,</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cr=</span>F, <span class="at">condCol=</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/vis sel marker-1.png" class="img-fluid" width="768"></p>
+<p><img src="visRestingLNonly_files/figure-html/vis%20sel%20marker-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <section id="dotplot" class="level3">
@@ -571,7 +662,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-1.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-1.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -580,7 +671,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-2.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-2.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -589,7 +680,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-3.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-3.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -598,7 +689,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-4.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-4.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(seurat) <span class="ot">&lt;-</span> seurat<span class="sc">$</span>intCluster</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>selGenesForm <span class="ot">&lt;-</span> selGenes <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">geneID=</span>gene) <span class="sc">%&gt;%</span></span>
@@ -609,7 +700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gapVecR=</span><span class="cn">NULL</span>, <span class="at">gapVecC=</span><span class="cn">NULL</span>,<span class="at">cc=</span>F,</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cr=</span>F, <span class="at">condCol=</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-5.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-5.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>selGenes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">gene=</span><span class="fu">c</span>(<span class="st">"CCL19"</span>, <span class="st">"CCL21"</span>, <span class="st">"CXCL13"</span>, <span class="st">"LUM"</span>, <span class="st">"THY1"</span>,</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"PDGFRA"</span>, <span class="st">"PDGFRB"</span>, <span class="st">"COL1A1"</span>, <span class="st">"COL1A2"</span>, <span class="st">"COL3A1"</span>)) <span class="sc">%&gt;%</span> </span>
@@ -632,7 +723,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-6.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-6.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -641,7 +732,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-7.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-7.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -650,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-8.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-8.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -659,7 +750,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-9.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-9.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>selGenesForm <span class="ot">&lt;-</span> selGenes <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">geneID=</span>gene) <span class="sc">%&gt;%</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(geneID, EnsID) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene=</span>EnsID)</span>
@@ -669,7 +760,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gapVecR=</span><span class="cn">NULL</span>, <span class="at">gapVecC=</span><span class="cn">NULL</span>,<span class="at">cc=</span>F,</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cr=</span>F, <span class="at">condCol=</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-10.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-10.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>selGenes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">gene=</span><span class="fu">c</span>(<span class="st">"CCL19"</span>, <span class="st">"CCL21"</span>, <span class="st">"CXCL13"</span>, <span class="st">"LUM"</span>, <span class="st">"PDGFRA"</span>,</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"PGFRB"</span>)) <span class="sc">%&gt;%</span> </span>
@@ -692,7 +783,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-11.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-11.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -701,7 +792,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-12.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-12.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -710,7 +801,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-13.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-13.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -719,7 +810,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/project sign-14.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/project%20sign-14.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 </section>
@@ -770,7 +861,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/gene signature perivascular niche-1.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/gene%20signature%20perivascular%20niche-1.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -779,7 +870,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/gene signature perivascular niche-2.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/gene%20signature%20perivascular%20niche-2.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -788,7 +879,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/gene signature perivascular niche-3.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/gene%20signature%20perivascular%20niche-3.png" class="img-fluid" width="384"></p>
 </div>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(seurat, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">pt.size =</span> <span class="dv">1</span>, <span class="at">max.cutoff =</span> cut,</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">features =</span> selSign,</span>
@@ -797,7 +888,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/gene signature perivascular niche-4.png" class="img-fluid" width="384"></p>
+<p><img src="visRestingLNonly_files/figure-html/gene%20signature%20perivascular%20niche-4.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 <section id="dotplot-perivascular-gene-signature" class="level3">
@@ -812,7 +903,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks=</span><span class="fu">rev</span>(selGenes<span class="sc">$</span>EnsID), <span class="at">labels=</span><span class="fu">rev</span>(selGenes<span class="sc">$</span>gene)) <span class="sc">+</span></span>
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/dotplot peri genes-1.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/dotplot%20peri%20genes-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DotPlot</span>(seurat, <span class="at">assay=</span><span class="st">"RNA"</span>, <span class="at">features =</span> <span class="fu">rev</span>(selGenes<span class="sc">$</span>EnsID), <span class="at">scale =</span>F,</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster.idents =</span> F) <span class="sc">+</span></span>
@@ -822,7 +913,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks=</span><span class="fu">rev</span>(selGenes<span class="sc">$</span>EnsID), <span class="at">labels=</span><span class="fu">rev</span>(selGenes<span class="sc">$</span>gene)) <span class="sc">+</span></span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/dotplot peri genes-2.png" class="img-fluid" width="672"></p>
+<p><img src="visRestingLNonly_files/figure-html/dotplot%20peri%20genes-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -874,7 +965,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rotate</span>()</span>
 <span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visRestingLNonly_files/figure-html/GO term enrichment-1.png" class="img-fluid" width="768"></p>
+<p><img src="visRestingLNonly_files/figure-html/GO%20term%20enrichment-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 </section>
@@ -908,12 +999,12 @@ other attached packages:
 [10] Biobase_2.60.0              GenomicRanges_1.52.1        GenomeInfoDb_1.36.4        
 [13] IRanges_2.36.0              S4Vectors_0.40.1            BiocGenerics_0.48.0        
 [16] MatrixGenerics_1.12.3       matrixStats_1.2.0           pheatmap_1.0.12            
-[19] ggsci_3.0.0                 here_1.0.1                  runSeurat3_0.1.0           
+[19] ggsci_3.0.1                 here_1.0.1                  runSeurat3_0.1.0           
 [22] ggpubr_0.6.0                lubridate_1.9.3             forcats_1.0.0              
 [25] stringr_1.5.1               readr_2.1.5                 tidyr_1.3.1                
-[28] tibble_3.2.1                tidyverse_2.0.0             Seurat_5.0.1               
+[28] tibble_3.2.1                tidyverse_2.0.0             Seurat_5.0.2               
 [31] SeuratObject_5.0.1          sp_2.1-3                    purrr_1.0.2                
-[34] cowplot_1.1.3               ggplot2_3.4.4               reshape2_1.4.4             
+[34] cowplot_1.1.3               ggplot2_3.5.0               reshape2_1.4.4             
 [37] dplyr_1.1.4                
 
 loaded via a namespace (and not attached):
@@ -925,10 +1016,10 @@ loaded via a namespace (and not attached):
  [16] progressr_0.14.0          cli_3.6.2                 spatstat.explore_3.2-6   
  [19] fastDummies_1.7.3         scatterpie_0.2.1          labeling_0.4.3           
  [22] spatstat.data_3.0-4       ggridges_0.5.6            pbapply_1.7-2            
- [25] yulab.utils_0.1.4         gson_0.1.0                parallelly_1.37.0        
+ [25] yulab.utils_0.1.4         gson_0.1.0                parallelly_1.37.1        
  [28] limma_3.56.2              rstudioapi_0.15.0         RSQLite_2.3.5            
  [31] gridGraphics_0.5-1        generics_0.1.3            vroom_1.6.5              
- [34] ica_1.0-3                 spatstat.random_3.2-2     car_3.1-2                
+ [34] ica_1.0-3                 spatstat.random_3.2-3     car_3.1-2                
  [37] GO.db_3.17.0              Matrix_1.6-5              ggbeeswarm_0.7.2         
  [40] fansi_1.0.6               abind_1.4-5               lifecycle_1.0.4          
  [43] yaml_2.3.8                carData_3.0-5             qvalue_2.32.0            
@@ -938,7 +1029,7 @@ loaded via a namespace (and not attached):
  [55] pillar_1.9.0              knitr_1.45                fgsea_1.26.0             
  [58] future.apply_1.11.1       codetools_0.2-19          fastmatch_1.1-4          
  [61] leiden_0.4.3.1            glue_1.7.0                ggfun_0.1.4              
- [64] downloader_0.4            data.table_1.15.0         treeio_1.24.3            
+ [64] downloader_0.4            data.table_1.15.2         treeio_1.24.3            
  [67] vctrs_0.6.5               png_0.1-8                 spam_2.10-0              
  [70] gtable_0.3.4              cachem_1.0.8              xfun_0.42                
  [73] S4Arrays_1.0.6            mime_0.12                 tidygraph_1.3.1          
@@ -950,34 +1041,34 @@ loaded via a namespace (and not attached):
  [91] bit_4.0.5                 compiler_4.3.0            BiocNeighbors_1.18.0     
  [94] DelayedArray_0.26.7       plotly_4.10.4             shadowtext_0.1.3         
  [97] scales_1.3.0              lmtest_0.9-40             digest_0.6.34            
-[100] goftest_1.2-3             spatstat.utils_3.0-4      rmarkdown_2.25           
-[103] XVector_0.40.0            htmltools_0.5.7           pkgconfig_2.0.3          
-[106] sparseMatrixStats_1.12.2  fastmap_1.1.1             rlang_1.1.3              
-[109] htmlwidgets_1.6.4         shiny_1.8.0               DelayedMatrixStats_1.22.6
-[112] farver_2.1.1              zoo_1.8-12                jsonlite_1.8.8           
-[115] BiocParallel_1.34.2       GOSemSim_2.26.1           BiocSingular_1.16.0      
-[118] RCurl_1.98-1.14           magrittr_2.0.3            ggplotify_0.1.2          
-[121] GenomeInfoDbData_1.2.10   dotCall64_1.1-1           patchwork_1.2.0          
-[124] munsell_0.5.0             Rcpp_1.0.12               ape_5.7-1                
-[127] viridis_0.6.5             reticulate_1.35.0         stringi_1.8.3            
-[130] ggraph_2.1.0              zlibbioc_1.46.0           MASS_7.3-60.0.1          
-[133] plyr_1.8.9                parallel_4.3.0            listenv_0.9.1            
-[136] ggrepel_0.9.5             deldir_2.0-2              graphlayouts_1.1.0       
-[139] Biostrings_2.68.1         splines_4.3.0             tensor_1.5               
-[142] hms_1.1.3                 igraph_2.0.2              spatstat.geom_3.2-8      
-[145] ggsignif_0.6.4            RcppHNSW_0.6.0            ScaledMatrix_1.8.1       
-[148] evaluate_0.23             tzdb_0.4.0                tweenr_2.0.2             
-[151] httpuv_1.6.14             RANN_2.6.1                polyclip_1.10-6          
-[154] future_1.33.1             scattermore_1.2           ggforce_0.4.2            
-[157] rsvd_1.0.5                broom_1.0.5               xtable_1.8-4             
-[160] tidytree_0.4.6            RSpectra_0.16-1           rstatix_0.7.2            
-[163] later_1.3.2               viridisLite_0.4.2         aplot_0.2.2              
-[166] memoise_2.0.1             beeswarm_0.4.0            cluster_2.1.6            
-[169] timechange_0.3.0          globals_0.16.2           </code></pre>
+[100] goftest_1.2-3             presto_1.0.0              spatstat.utils_3.0-4     
+[103] rmarkdown_2.26            XVector_0.40.0            htmltools_0.5.7          
+[106] pkgconfig_2.0.3           sparseMatrixStats_1.12.2  fastmap_1.1.1            
+[109] rlang_1.1.3               htmlwidgets_1.6.4         shiny_1.8.0              
+[112] DelayedMatrixStats_1.22.6 farver_2.1.1              zoo_1.8-12               
+[115] jsonlite_1.8.8            BiocParallel_1.34.2       GOSemSim_2.26.1          
+[118] BiocSingular_1.16.0       RCurl_1.98-1.14           magrittr_2.0.3           
+[121] ggplotify_0.1.2           GenomeInfoDbData_1.2.10   dotCall64_1.1-1          
+[124] patchwork_1.2.0           munsell_0.5.0             Rcpp_1.0.12              
+[127] ape_5.7-1                 viridis_0.6.5             reticulate_1.35.0        
+[130] stringi_1.8.3             ggraph_2.2.0              zlibbioc_1.46.0          
+[133] MASS_7.3-60.0.1           plyr_1.8.9                parallel_4.3.0           
+[136] listenv_0.9.1             ggrepel_0.9.5             deldir_2.0-4             
+[139] graphlayouts_1.1.0        Biostrings_2.68.1         splines_4.3.0            
+[142] tensor_1.5                hms_1.1.3                 igraph_2.0.2             
+[145] spatstat.geom_3.2-9       ggsignif_0.6.4            RcppHNSW_0.6.0           
+[148] ScaledMatrix_1.8.1        evaluate_0.23             tzdb_0.4.0               
+[151] tweenr_2.0.3              httpuv_1.6.14             RANN_2.6.1               
+[154] polyclip_1.10-6           future_1.33.1             scattermore_1.2          
+[157] ggforce_0.4.2             rsvd_1.0.5                broom_1.0.5              
+[160] xtable_1.8-4              tidytree_0.4.6            RSpectra_0.16-1          
+[163] rstatix_0.7.2             later_1.3.2               viridisLite_0.4.2        
+[166] aplot_0.2.2               memoise_2.0.1             beeswarm_0.4.0           
+[169] cluster_2.1.6             timechange_0.3.0          globals_0.16.2           </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Tue Mar  5 18:23:50 2024"</code></pre>
+<pre><code>[1] "Wed Mar 13 18:48:18 2024"</code></pre>
 </div>
 </div>
 
@@ -1012,23 +1103,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -1040,24 +1117,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
     setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1085,136 +1145,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
       });
-    }
+      return popup.innerHTML;
+    });
   }
 });
 </script>
