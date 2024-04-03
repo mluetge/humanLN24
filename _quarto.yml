@@ -44,6 +44,12 @@ website:
           - analysis/runSpatalkDecomp_s4.qmd
           - analysis/runSpaTalkDecompB2_s2.qmd
           - analysis/runSpaTalkDecompB2_s4.qmd
+          - analysis/visColocalSpaTalk_s4.qmd
+          - analysis/visColocalSpaTalkB2_s2.qmd
+          - analysis/visColocalSpaTalkB2_s4.qmd
+          - analysis/celltypeEnrichmentGiotto_s4.qmd
+          - analysis/celltypeEnrichmentGiottoB2_s2.qmd
+          - analysis/celltypeEnrichmentGiottoB2_s4.qmd
 
     tools:
       - icon: github
